@@ -1,38 +1,56 @@
+-- LocalScript วางใน StarterPlayerScripts
+local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local freezeEvent = ReplicatedStorage:WaitForChild("SafeFreezeAnimalRequest")
 
-freezeEvent.OnServerEvent:Connect(function(player)
-    local character = player.Character
-    if not character then return end
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
-    local animal = workspace:FindFirstChild(player.Name .. "_Pet")
-    if not animal or not animal:IsA("Model") then
-        warn("สัตว์ของผู้เล่นไม่พบ")
-        return
-    end
+-- ลบ UI เดิม (ถ้ามี)
+if playerGui:FindFirstChild("PetUI") then
+    playerGui.PetUI:Destroy()
+end
 
-    local humanoid = animal:FindFirstChild("Humanoid")
-    if humanoid then
-        humanoid.WalkSpeed = 0
-        humanoid.JumpPower = 0
-        humanoid:ChangeState(Enum.HumanoidStateType.Physics) -- หยุดแบบ force
-    end
+-- สร้าง GUI หลัก
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "PetUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
 
-    -- ปิด Script / LocalScript ในสัตว์
-    for _, child in ipairs(animal:GetDescendants()) do
-        if child:IsA("Script") or child:IsA("LocalScript") then
-            child.Disabled = true
-        end
-        -- ลบตัวควบคุมการเคลื่อนที่ เช่น BodyVelocity
-        if child:IsA("BodyMover") or child:IsA("BodyVelocity") then
-            child:Destroy()
-        end
-    end
+-- 🔘 ปุ่ม Freeze/Unfreeze
+local freezeBtn = Instance.new("TextButton")
+freezeBtn.Name = "FreezeButton"
+freezeBtn.Size = UDim2.new(0, 180, 0, 50)
+freezeBtn.Position = UDim2.new(0.5, -190, 0.85, 0)
+freezeBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+freezeBtn.TextColor3 = Color3.new(1, 1, 1)
+freezeBtn.Font = Enum.Font.GothamBold
+freezeBtn.TextSize = 20
+freezeBtn.BorderSizePixel = 0
+freezeBtn.Text = "❄️ หยุด/ปล่อยสัตว์"
+freezeBtn.Parent = screenGui
 
-    -- ดึงสัตว์มาอยู่ใกล้ตัวผู้เล่น
-    local root = character:FindFirstChild("HumanoidRootPart")
-    local animalRoot = animal:FindFirstChild("PrimaryPart") or animal:FindFirstChild("HumanoidRootPart")
-    if root and animalRoot then
-        animal:SetPrimaryPartCFrame(root.CFrame * CFrame.new(2, 0, 2))
-    end
+-- 🔘 ปุ่มดึงสัตว์มา
+local pullBtn = Instance.new("TextButton")
+pullBtn.Name = "PullButton"
+pullBtn.Size = UDim2.new(0, 180, 0, 50)
+pullBtn.Position = UDim2.new(0.5, 10, 0.85, 0)
+pullBtn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
+pullBtn.TextColor3 = Color3.new(1, 1, 1)
+pullBtn.Font = Enum.Font.GothamBold
+pullBtn.TextSize = 20
+pullBtn.BorderSizePixel = 0
+pullBtn.Text = "🧲 ดึงสัตว์มาหา"
+pullBtn.Parent = screenGui
+
+-- RemoteEvent (ต้องสร้างไว้ใน ReplicatedStorage ก่อน)
+local freezeEvent = ReplicatedStorage:WaitForChild("FreezeToggleEvent")
+local pullEvent = ReplicatedStorage:WaitForChild("PullPetEvent")
+
+-- Event เมื่อกดปุ่ม
+freezeBtn.MouseButton1Click:Connect(function()
+    freezeEvent:FireServer()
+end)
+
+pullBtn.MouseButton1Click:Connect(function()
+    pullEvent:FireServer()
 end)
