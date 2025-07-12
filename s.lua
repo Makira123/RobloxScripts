@@ -12,7 +12,7 @@ end
 
 -- สร้าง GUI หลัก
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "PetUI"
+screenGui.Name = "bunny"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = playerGui
 
