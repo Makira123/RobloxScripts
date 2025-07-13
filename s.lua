@@ -8,7 +8,7 @@ local character = player.Character or player.CharacterAdded:Wait()
 local button = player:WaitForChild("PlayerGui"):WaitForChild("ScreenGui"):WaitForChild("HiButton")
 
 -- สัตว์ชื่อ Pet1
-local pet = workspace:WaitForChild("Pet1")
+local pet = workspace:WaitForChild("Moth")
 
 -- ตรวจสอบว่ามี PrimaryPart
 if not pet.PrimaryPart then
