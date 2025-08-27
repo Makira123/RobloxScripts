@@ -1,0 +1,170 @@
+/* ตั้งค่าให้ body ครอบจอทั้งหมด */
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  /* ใช้ Flexbox จัดให้อยู่ตรงกลางทั้งแนวนอนและแนวตั้ง */
+  body {
+    display: flex;
+    justify-content: center; /* แนวนอน */
+    align-items: center;     /* แนวตั้ง */
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    overflow: hidden;
+  }
+
+  /* กล่องตรงกลาง */
+  .homelove {
+  width: 300px;
+  height: 300px;
+  background-color: #ff9ae5;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(255,154,229,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  position: relative; /* 👈 สำคัญมาก ให้ลูก absolute อ้างอิงกรอบนี้ */
+  overflow: hidden;   /* 👈 กันไม่ให้หลุดออกนอกกรอบ */
+}
+
+.i {
+  width: 200px;
+  height: 200px;
+  background: #FF0210;
+  transform: rotate(45deg);
+  box-shadow: 0 3px 1500px rgba(255,20,20,1)
+}
+ .love,
+ .you {
+   width: 200px;
+   height: 200px;
+   border-radius: 50%;
+   background: #FF0210;
+   position: absolute;
+   top: 45.2%;
+   box-shadow: 0 3px 150px rgba(255,20,20,1)
+ }
+ .love {
+   position: absolute;
+   left:317.55px;
+   top:850px;
+   transform: rotate(45deg);
+ }
+ .you {
+   position: absolute;
+   left:462.55px;
+   top:850px;
+ }
+ .iloveyou {
+   color: #Ffffff;
+   position: absolute;
+   top: 60%;
+   left: -26%;
+   font-size: 35px;
+ }
+
+  .heart {
+  width: 150px;
+  height: 140px;
+  background-color: #FF1414;
+  position: relative;
+  left: clc(50% - 75px);
+  top:-20%;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  box-shadow: 0 2px 10px rgba(255,20,20,0.75);
+  }
+
+.yes {
+  position: absolute;
+  left:calc(50% - 110px);
+}
+
+.no {
+  position: absolute
+}
+  
+  button {
+    display: auto;
+    width: 100px;
+    height: 50px;
+    position: relative;
+    left:calc(50% + 10px);
+    border-radius: 30px;
+    border: 1px solid #000;
+    top: 70%;
+    box-shadow: 0 5px 15px rgba(1,2,7,0.3);
+  }
+
+  /* ทำให้ยืดหยุ่นในมือถือ */
+  @media (max-width: 500px){
+    .homelove {
+      width: 350px;  /* ความกว้างตามหน้าจอมือถือ */
+      height: 350px;
+      font-size: 18px;
+    }
+    
+    .you {
+      position: absolute;
+      top: 30%;
+      left: 43.9%;
+    }
+    .love {
+      position: absolute;
+      top: 30%;
+      left: 8.1%;
+    }
+    body {
+      background: #1b2735;
+    }
+  }
+  
+  /* ดาวเล็ก ๆ กระพริบ */
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    box-shadow: 0 3px 5px rgba(255,255,255,1);
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+  }
+
+  @keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 1; }
+  }
+
+  /* ดาวตก */
+  .shooting-star {
+    position: absolute;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, white, transparent);
+    opacity: 0;
+    transform: rotate(-45deg);
+    animation: shooting 5s linear infinite;
+    box-shadow: 0 3px 100px rgba(255,255,255,1);
+  }
+
+  @keyframes shooting {
+    0% {
+      transform: translateX(200px) translateY(0px) rotate(-45deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(-100vw) translateY(100vh) rotate(-45deg);
+      opacity: 0;
+    }
+  }
