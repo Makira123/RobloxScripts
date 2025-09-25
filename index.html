@@ -1,0 +1,3115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>hi i am home</title>
+    <link rel="stylesheet" href="i am-1.css">
+</head>
+
+<body>
+
+    <div class="star" style="top: 10%;left: 69%;"></div>
+    <div class="star" style="top: 23%;left: 45%;"></div>
+    <div class="star" style="top: 64%;left: 92%;"></div>
+    <div class="star" style="top: 10%;left: 65;"></div>
+    <div class="star" style="top: 17%;left: 75%;"></div>
+    <div class="star" style="top: 31%;left: 49%;"></div>
+    <div class="star" style="top: 55%;left: 15%;"></div>
+    <div class="star" style="top: 89%;left: 61%;"></div>
+    <div class="star" style="top: 53%;left: 67%;"></div>
+    <div class="star" style="top: 46%;left: 83%;"></div>
+    <div class="star" style="top: 31%;left: 49%;"></div>
+    <div class="star" style="top: 75%;left: 75%;"></div>
+    <div class="star" style="top: 89%;left: 51%;"></div>
+    <div class="star" style="top: 83%;left: 47%;"></div>
+    <div class="star" style="top: 77%;left: 73%;"></div>
+    <div class="star" style="top: 31%;left: 39%;"></div>
+    <div class="star" style="top: 75%;left: 75%;"></div>
+    <div class="star" style="top: 49%;left: 61%;"></div>
+    <div class="star" style="top: 23%;left: 57%;"></div>
+    <div class="star" style="top: 47%;left: 53%;"></div>
+    <div class="star" style="top: 31%;left: 69%;"></div>
+    <div class="star" style="top: 55%;left: 65%;"></div>
+    <div class="star" style="top: 39%;left: 13%;"></div>
+    <div class="star" style="top: 33%;left: 75%;"></div>
+    <div class="star" style="top: 47%;left: 53%;"></div>
+
+    <div class="home">
+        <div class="label-body"></div>
+        <input type="radio" name="radiohome" id="radio1" checked>
+        <label class="label" for="radio1"></label>
+
+        <input type="radio" name="radiohome" id="radio2">
+        <label class="label" for="radio2"></label>
+
+
+        <div class="content container home1">
+
+            <center>
+                <h1>ランダム</h1>
+            </center>
+
+            <!-- เลือกภาษา -->
+            <center>
+                <label class="la" for="lang">言語を選ぶ</label>: </label>
+                <select id="lang">
+                    <option value="ja">日本語</option>
+                    <option value="zh">中国語</option>
+                    <option value="th">タイ語</option>
+                    <option value="en">英語</option>
+                </select>
+                <br><br>
+
+                <button class="rendom" onclick="showRandomKanji()">単語をランダム</button>
+                <div id="kanji">?</div>
+                <button class="mon" onclick="showAnswer()">答え</button>
+
+
+                <div id="answer">＿＿＿</div>
+            </center>
+
+            <script>
+                // ข้อมูลคันจิ: ตัวคันจิ + ความหมายกลาง (อังกฤษ)
+                const kanjiList = [
+                    { kanji: "アイスクリーム", meaning: "ไอศกรีม" },
+                    { kanji: "間", meaning: "ระหว่าง" },
+                    { kanji: "会う(あう)", meaning: "พบ, เจอ" },
+                    { kanji: "青（あお）", meaning: "สีฟ้า" },
+                    { kanji: "赤（あか）", meaning: "สีแดง" },
+                    { kanji: "明るい（あかるい）", meaning: "ร่าเริง, สดใส" },
+                    { kanji: "開ける(ひらける)、開ける（あける）", meaning: "เปิด" },
+                    { kanji: "上げる（あげる）", meaning: "ให้" },
+                    { kanji: "朝（あさ）", meaning: "ตอนเช้า" },
+                    { kanji: "あさって", meaning: "มะรืน" },
+                    { kanji: "足(あし)", meaning: "เท้า, ขา" },
+                    { kanji: "明日（あした）", meaning: "พรุ่งนี้" },
+                    { kanji: "あそこ", meaning: "ตรงโน้น" },
+                    { kanji: "遊ぶ(あそぶ)", meaning: "เที่ยว, เล่น" },
+                    { kanji: "あたたかい", meaning: "อบอุ่น" },
+                    { kanji: "新しい（あたらしい）", meaning: "ใหม่" },
+                    { kanji: "あちら", meaning: "ทางโน้น, ตรงโน้น" },
+                    { kanji: "暑い（あつい）", meaning: "(อากาศ) ร้อน" },
+                    { kanji: "あっち", meaning: "ทางโน้น, ตรงโน้น (กันเอง)" },
+                    { kanji: "あと～", meaning: "หลังจาก" },
+                    { kanji: "兄", meaning: "พี่ชาย (ของตน)" },
+                    { kanji: "姉", meaning: "พี่สาว (ของตน)" },
+                    { kanji: "あの", meaning: "โน่น, โน้น" },
+                    { kanji: "あびます", meaning: "อาบน้ำ (ฝักบัว)" },
+                    { kanji: "あぶない", meaning: "อันตราย" },
+                    { kanji: "あまり～ない", meaning: "ไม่ค่อย" },
+                    { kanji: "雨(あめ)", meaning: "ฝน" },
+                    { kanji: "アメリカ人", meaning: "ชาวอเมริกัน" },
+                    { kanji: "洗う（あらう）", meaning: "ซัก, ล้าง" },
+                    { kanji: "あります", meaning: "มี, อยู่ (สิ่งไม่มีชีวิต)" },
+                    { kanji: "歩いて来る（あるいてくる）", meaning: "เดินมา" },
+                    { kanji: "歩く（ある（く）", meaning: "เดิน" },
+                    { kanji: "アルバイト", meaning: "งานพาร์ตไทม์" },
+                    { kanji: "あれ", meaning: "ที่โน่น, ตรงโน้น" },
+                    { kanji: "いい", meaning: "ดี" },
+                    { kanji: "いいえ", meaning: "ไม่ใช่, เปล่า" },
+                    { kanji: "言う（いう）", meaning: "พูด, บอก" },
+                    { kanji: "家（いえ）", meaning: "บ้าน" },
+                    { kanji: "いかが", meaning: "อย่างไร (สุภาพ)" },
+                    { kanji: "行く(いく）", meaning: "ไป" },
+                    { kanji: "いくつ①", meaning: "(อายุ) เท่าไร" },
+                    { kanji: "いくつ②", meaning: "(จำนวน) เท่าไร" },
+                    { kanji: "いくら", meaning: "ราคา, เท่าไร" },
+                    { kanji: "医（い）", meaning: "แพทย์, หมอ" },
+                    { kanji: "者（しゃ）", meaning: "คน, ผู้" },
+                    { kanji: "いす", meaning: "เก้าอี้" },
+                    { kanji: "いそがしい", meaning: "ยุ่ง" },
+                    { kanji: "急（いそ）", meaning: "รีบ, ฉับพลัน" },
+                    { kanji: "いたい", meaning: "เจ็บ, ปวด" },
+                    { kanji: "イタリア", meaning: "ประเทศอิตาลี" },
+                    { kanji: "いちばん", meaning: "ที่สุด" },
+                    { kanji: "いつ", meaning: "เมื่อไร" },
+                    { kanji: "いっしょに", meaning: "ด้วยกัน" },
+                    { kanji: "いつも", meaning: "เสมอ ๆ" },
+                    { kanji: "犬（いぬ）", meaning: "สุนัข" },
+                    { kanji: "今（いま）", meaning: "ตอนนี้, ปัจจุบัน" },
+                    { kanji: "今から（いまから）", meaning: "หลังจากนี้" },
+                    { kanji: "います", meaning: "มี, อยู่ (สิ่งมีชีวิต)" },
+                    { kanji: "妹（いもうと）", meaning: "น้องสาว" },
+                    { kanji: "自（じ）", meaning: "ตนเอง, ด้วยตัวเอง" },
+                    { kanji: "分（ぶん）", meaning: "ส่วน, แบ่ง, นาที" },
+                    { kanji: "言（い）", meaning: "พูด, คำพูด" },
+                    { kanji: "人（ひと）", meaning: "คน, มนุษย์" },
+                    { kanji: "入（い）", meaning: "เข้า" },
+                    { kanji: "口（ぐち）", meaning: "ปาก, ทางเข้า/ออก" },
+                    { kanji: "いります", meaning: "ต้องการ" },
+                    { kanji: "入（い）れます", meaning: "ใส่, บรรจุ" },
+                    { kanji: "いろいろ", meaning: "ต่าง ๆ นานา" },
+                    { kanji: "インターネット", meaning: "อินเทอร์เน็ต" },
+                    { kanji: "インターネット（を）します", meaning: "เล่นอินเทอร์เน็ต" },
+                    { kanji: "上（うえ）", meaning: "บน, ข้างบน" },
+                    { kanji: "うしろ", meaning: "ข้างหลัง" },
+                    { kanji: "歌（うた）", meaning: "เพลง" },
+                    { kanji: "歌（うた）います", meaning: "ร้องเพลง" },
+                    { kanji: "生（う）まれます", meaning: "เกิด, สร้างขึ้น" },
+                    { kanji: "海（うみ）", meaning: "ทะเล, มหาสมุทร" },
+                    { kanji: "うら", meaning: "ด้านหลัง" },
+                    { kanji: "売（う）ります", meaning: "ขาย" },
+                    { kanji: "うるさい", meaning: "เสียงดัง, หนวกหู" },
+                    { kanji: "うれしい", meaning: "ดีใจ, ยินดี" },
+                    { kanji: "うん", meaning: "อือ (รูปกันเองของ はい)" },
+                    { kanji: "え", meaning: "รูปวาด" },
+                    { kanji: "映（えい）画（が）", meaning: "ภาพยนตร์" },
+                    { kanji: "映（えい）画（が）館（かん）", meaning: "โรงภาพยนตร์" },
+                    { kanji: "英（えい）語（ご）", meaning: "ภาษาอังกฤษ" },
+                    { kanji: "ええ（＝はい）", meaning: "ค่ะ/ครับ" },
+                    { kanji: "駅（えき）", meaning: "สถานีรถไฟ" },
+                    { kanji: "駅（えき）前（まえ）", meaning: "หน้าสถานีรถไฟ" },
+                    { kanji: "えんぴつ", meaning: "ดินสอ" },
+                    { kanji: "おいしい", meaning: "อร่อย" },
+                    { kanji: "多（おお）い", meaning: "เยอะ, มาก" },
+                    { kanji: "大（おお）きい", meaning: "ใหญ่" },
+                    { kanji: "おおぜい", meaning: "(คน) เยอะ, จำนวนมาก" },
+                    { kanji: "お母（かあ）さん", meaning: "คุณแม่ (ของผู้อื่น)" },
+                    { kanji: "おかし", meaning: "ขนม" },
+                    { kanji: "お金（かね）", meaning: "เงิน" },
+                    { kanji: "起（お）きます", meaning: "ตื่น" },
+                    { kanji: "（物（もの）を）おきます", meaning: "วาง (สิ่งของ)" },
+                    { kanji: "お客（きゃく）さん", meaning: "แขก, ลูกค้า (รูปสุภาพของ 客（きゃく）)" },
+                    { kanji: "奥（おく）さん", meaning: "ภรรยา (ของผู้อื่น)" },
+                    { kanji: "お薬（くすり）", meaning: "ยา (รูปสุภาพของ 薬（くすり）)" },
+                    { kanji: "送（おく）ります", meaning: "ส่ง" },
+                    { kanji: "お酒（さけ）", meaning: "เหล้า" },
+                    { kanji: "おじいさん①", meaning: "คุณปู่, คุณตา (ของผู้อื่น)" },
+                    { kanji: "おじいさん②", meaning: "คุณลุง (เรียกผู้ชายที่อายุมาก)" },
+                    { kanji: "お時間（じかん）", meaning: "เวลา (รูปสุภาพของ 時間（じかん）)" },
+                    { kanji: "お好（す）きなもの", meaning: "ของที่ชอบ (รูปสุภาพของ 好きなもの)" },
+                    { kanji: "おそい", meaning: "ช้า, สาย, ดึก" },
+                    { kanji: "おそくまで", meaning: "จนดึก" },
+                    { kanji: "お茶（ちゃ）", meaning: "น้ำชา" },
+                    { kanji: "夫（おっと）", meaning: "สามี" },
+                    { kanji: "おてら", meaning: "วัด" },
+                    { kanji: "お父（とう）さん", meaning: "คุณพ่อ (ของผู้อื่น)" },
+                    { kanji: "弟（おとうと）", meaning: "น้องชาย (ของตน)" },
+                    { kanji: "弟（おとうと）さん", meaning: "น้องชาย (ของผู้อื่น)" },
+                    { kanji: "男（おとこ）の子", meaning: "เด็กผู้ชาย" },
+                    { kanji: "男（おとこ）の人（ひと）", meaning: "ผู้ชาย" },
+                    { kanji: "おととい", meaning: "เมื่อวานซืน" },
+                    { kanji: "おなか", meaning: "ท้อง" },
+                    { kanji: "お兄（にい）さん", meaning: "พี่ชาย (ของผู้อื่น)" },
+                    { kanji: "お姉（ねえ）さん", meaning: "พี่สาว (ของผู้อื่น)" },
+                    { kanji: "おばあさん①", meaning: "คุณย่า, คุณยาย (ของผู้อื่น)" },
+                    { kanji: "おばあさん②", meaning: "คุณป้า (เรียกผู้หญิงที่อายุมาก)" },
+                    { kanji: "おふろ", meaning: "อ่างอาบน้ำ" },
+                    { kanji: "お弁（べん）当（とう）", meaning: "ข้าวกล่อง (รูปสุภาพของ 弁当（べんとう）)" },
+                    { kanji: "おぼえます", meaning: "จำ, จำได้" },
+                    { kanji: "おみやげ", meaning: "ของฝาก" },
+                    { kanji: "重（おも）い", meaning: "หนัก" },
+                    { kanji: "思（おも）います", meaning: "คิด" },
+                    { kanji: "おもしろい", meaning: "สนุก, น่าสนใจ" },
+                    { kanji: "泳（およ）ぎます", meaning: "ว่ายน้ำ" },
+                    { kanji: "降（お）ります", meaning: "ลง (จากพาหนะ เช่น รถประจำทาง รถไฟ)" },
+                    { kanji: "終（お）わります", meaning: "เสร็จ, จบ" },
+                    { kanji: "音（おん）楽（がく）", meaning: "เพลง, ดนตรี" },
+                    { kanji: "おんせん", meaning: "บ่อน้ำร้อน" },
+                    { kanji: "女（おんな）の人（ひと）", meaning: "ผู้หญิง" },
+                    { kanji: "お飲（の）み物（もの）", meaning: "เครื่องดื่ม (รูปสุภาพของ 飲み物)" },
+                    { kanji: "お話（はなし）", meaning: "เรื่องเล่า, คำพูด (รูปสุภาพของ 話)" },
+                    { kanji: "火（か）", meaning: "ตัวย่อของวันอังคาร" },
+                    { kanji: "会（かい）議（ぎ）", meaning: "การประชุม" },
+                    { kanji: "会（かい）議（ぎ）（を）します", meaning: "ประชุม" },
+                    { kanji: "会（かい）議（ぎ）室（しつ）", meaning: "ห้องประชุม" },
+                    { kanji: "外国（がいこく）", meaning: "ต่างประเทศ" },
+                    { kanji: "会社（かいしゃ）", meaning: "บริษัท" },
+                    { kanji: "会場（かいじょう）", meaning: "หอประชุม, สถานที่จัดงาน, บริเวณที่จัดงาน" },
+                    { kanji: "買（か）います", meaning: "ซื้อ" },
+                    { kanji: "買い物（かいもの）", meaning: "การซื้อของ" },
+                    { kanji: "買い物（かいもの）（を）します", meaning: "ซื้อของ" },
+                    { kanji: "帰（かえ）ってきます", meaning: "กลับมา" },
+                    { kanji: "帰（かえ）ります", meaning: "กลับ" },
+                    { kanji: "顔（かお）", meaning: "หน้า" },
+                    { kanji: "（お金（かね）が）かかります①", meaning: "ใช้ (เงิน)" },
+                    { kanji: "（時間（じかん）が）かかります②", meaning: "ใช้ (เวลา)" },
+                    { kanji: "かぎ", meaning: "กุญแจ" },
+                    { kanji: "書（か）きます", meaning: "เขียน" },
+                    { kanji: "（えを）かきます", meaning: "วาด (รูป)" },
+                    { kanji: "学生（がくせい）", meaning: "นักเรียน" },
+                    { kanji: "（電話（でんわ）を) かけます", meaning: "หมุน (โทรศัพท์)" },
+                    { kanji: "かさ", meaning: "ร่ม" },
+                    { kanji: "かします", meaning: "ให้ยืม" },
+                    { kanji: "家族（かぞく）", meaning: "ครอบครัว" },
+                    { kanji: "方（かた）", meaning: "คน (รูปสุภาพของ 人（ひと）)" },
+                    { kanji: "～方（がた）", meaning: "พวก..., เหล่า... (รูปสุภาพของ ～たち)" },
+                    { kanji: "形（かたち）", meaning: "รูปร่าง" },
+                    { kanji: "学校（がっこう）", meaning: "โรงเรียน" },
+                    { kanji: "買（か）ってきます", meaning: "ซื้อมา" },
+                    { kanji: "かばん", meaning: "กระเป๋า" },
+                    { kanji: "（ぼうしを）かぶります", meaning: "ใส่, สวม (ของประดับศีรษะ เช่น หมวก หมวกกันน็อก)" },
+                    { kanji: "紙（かみ）", meaning: "กระดาษ" },
+                    { kanji: "紙しばい（かみしばい）", meaning: "การเล่านิทานประกอบภาพ" },
+                    { kanji: "カメラ", meaning: "กล้อง" },
+                    { kanji: "～から", meaning: "จาก..." },
+                    { kanji: "からい", meaning: "เผ็ด" },
+                    { kanji: "カラオケ", meaning: "คาราโอเกะ" },
+                    { kanji: "カラオケ（を）する", meaning: "ร้องคาราโอเกะ" },
+                    { kanji: "体（からだ）", meaning: "ร่างกาย" },
+                    { kanji: "借（か）ります", meaning: "ขอยืม, เช่า" },
+                    { kanji: "軽（かる）い", meaning: "เบา" },
+                    { kanji: "カレー", meaning: "แกงกะหรี่" },
+                    { kanji: "カレンダー", meaning: "ปฏิทิน" },
+                    { kanji: "川（かわ）", meaning: "แม่น้ำ" },
+                    { kanji: "かんがえます", meaning: "คิด, พิจารณา" },
+                    { kanji: "韓国（かんこく）", meaning: "ประเทศเกาหลีใต้" },
+                    { kanji: "漢字（かんじ）", meaning: "อักษรคันจิ" },
+                    { kanji: "かんたん", meaning: "ง่าย" },
+                    { kanji: "木（き）", meaning: "ต้นไม้" },
+                    { kanji: "（音楽（おんがく）を）聞（き）きます①", meaning: "ฟัง (เพลง)" },
+                    { kanji: "（友だちに／先生に）聞（き）きます②", meaning: "ถาม (เพื่อน, ครู)" },
+                    { kanji: "北（きた）", meaning: "ทิศเหนือ" },
+                    { kanji: "ギター", meaning: "กีตาร์" },
+                    { kanji: "きたない", meaning: "สกปรก" },
+                    { kanji: "喫茶店（きっさてん）", meaning: "ร้านกาแฟ" },
+                    { kanji: "きっぷ", meaning: "ตั๋ว (รถโดยสารสาธารณะ)" },
+                    { kanji: "きのう", meaning: "เมื่อวาน" },
+                    { kanji: "（性格（せいかく）が）きびしい", meaning: "(นิสัย) เข้มงวด" },
+                    { kanji: "来（き）ます", meaning: "มา" },
+                    { kanji: "(服（ふく）を)着（き）ます", meaning: "ใส่ (เสื้อผ้า)" },
+                    { kanji: "決（き）まります", meaning: "ตกลง" },
+                    { kanji: "決（き）めます", meaning: "ตัดสินใจ" },
+                    { kanji: "気持（きもち）がいい", meaning: "รู้สึกดี, รู้สึกสบาย" },
+                    { kanji: "客（きゃく）", meaning: "แขก, ลูกค้า" },
+                    { kanji: "牛乳（ぎゅうにゅう）", meaning: "นม" },
+                    { kanji: "今日（きょう）", meaning: "วันนี้" },
+                    { kanji: "教室（きょうしつ）", meaning: "ห้องเรียน" },
+                    { kanji: "兄弟（きょうだい）", meaning: "พี่น้อง" },
+                    { kanji: "去（きょ）年（ねん）", meaning: "ปีที่แล้ว" },
+                    { kanji: "きらい", meaning: "ไม่ชอบ, เกลียด" },
+                    { kanji: "切（き）ります", meaning: "ตัด" },
+                    { kanji: "（部屋（へや）が）きれい①", meaning: "(ห้อง) สะอาด" },
+                    { kanji: "（けしきが）きれい②", meaning: "(ทิวทัศน์) สวยงาม" },
+                    { kanji: "きれいに", meaning: "อย่างสะอาด, อย่างเรียบร้อย" },
+                    { kanji: "金（きん）", meaning: "ตัวย่อของวันศุกร์" },
+                    { kanji: "銀行（ぎんこう）", meaning: "ธนาคาร" },
+                    { kanji: "空港（くうこう）", meaning: "สนามบิน" },
+                    { kanji: "薬（くすり）", meaning: "ยา" },
+                    { kanji: "ください", meaning: "กรุณา" },
+                    { kanji: "くだもの", meaning: "ผลไม้" },
+                    { kanji: "くつ", meaning: "รองเท้า" },
+                    { kanji: "国（くに）", meaning: "ประเทศ" },
+                    { kanji: "～くらい", meaning: "ประมาณ, ราว ๆ" },
+                    { kanji: "車（くるま）", meaning: "รถยนต์" },
+                    { kanji: "黒い（くろい）", meaning: "(สี) ดำ" },
+                    { kanji: "けいたい電話（でんわ）", meaning: "โทรศัพท์มือถือ" },
+                    { kanji: "ケーキ", meaning: "เค้ก" },
+                    { kanji: "ケース", meaning: "กล่องเล็ก ๆ, กรณี" },
+                    { kanji: "ゲーム", meaning: "เกม" },
+                    { kanji: "ゲーム（を）します", meaning: "เล่นเกม" },
+                    { kanji: "今朝（けさ）", meaning: "เมื่อเช้า" },
+                    { kanji: "けしき", meaning: "ทิวทัศน์" },
+                    { kanji: "けしゴム", meaning: "ยางลบ" },
+                    { kanji: "けします", meaning: "ลบ" },
+                    { kanji: "月（げつ）", meaning: "ตัวย่อของวันจันทร์" },
+                    { kanji: "けっこんします", meaning: "แต่งงาน" },
+                    { kanji: "月曜日（げつようび）", meaning: "วันจันทร์" },
+                    { kanji: "見学（けんがく）", meaning: "ทัศนศึกษา, เยี่ยมชม (โรงงาน)" },
+                    { kanji: "元気（げんき）", meaning: "ร่าเริง, แข็งแรง" },
+                    { kanji: "元気がない（げんきがない）", meaning: "ไม่ร่าเริง, ไม่แข็งแรง" },
+                    { kanji: "公園（こうえん）", meaning: "สวนสาธารณะ" },
+                    { kanji: "こう茶（ちゃ）", meaning: "ชาดำ" },
+                    { kanji: "こうばん", meaning: "ป้อมตำรวจ" },
+                    { kanji: "コート", meaning: "เสื้อโค้ท" },
+                    { kanji: "コーヒー", meaning: "กาแฟ" },
+                    { kanji: "ご家族（ごかぞく）", meaning: "ครอบครัว (ของผู้อื่น)" },
+                    { kanji: "ご兄弟（ごきょうだい）", meaning: "พี่น้อง (ของผู้อื่น)" },
+                    { kanji: "ここ", meaning: "ที่นี่" },
+                    { kanji: "午後（ごご）", meaning: "ช่วงบ่าย" },
+                    { kanji: "ございます", meaning: "มี, อยู่ (รูปสุภาพของあります)" },
+                    { kanji: "ご自由に（ごじゆうに）", meaning: "…ตามสบาย (รูปสุภาพของじゆうに)" },
+                    { kanji: "ご主人（ごしゅじん）", meaning: "สามี (ของผู้อื่น)" },
+                    { kanji: "午前（ごぜん）", meaning: "ช่วงเช้า" },
+                    { kanji: "答え（こたえ）", meaning: "คำตอบ" },
+                    { kanji: "答えます（こたえます）", meaning: "ตอบ" },
+                    { kanji: "こちら", meaning: "ทางโน้น, ตรงโน้น" },
+                    { kanji: "こっち", meaning: "ทางโน้น, ตรงโน้น (รูปกันเองของこちら)" },
+                    { kanji: "コップ", meaning: "ถ้วย" },
+                    { kanji: "今年（ことし）", meaning: "ปีนี้" },
+                    { kanji: "ことば", meaning: "คำศัพท์" },
+                    { kanji: "子ども（こども）", meaning: "เด็ก, ลูก" },
+                    { kanji: "子どもさん（こどもさん）", meaning: "เด็ก, ลูก (ของผู้อื่น)" },
+                    { kanji: "この～", meaning: "…นี้" },
+                    { kanji: "このあと", meaning: "หลังจากนี้" },
+                    { kanji: "このへん", meaning: "แถวนี้" },
+                    { kanji: "ご飯（ごはん）", meaning: "ข้าว" },
+                    { kanji: "コピー", meaning: "สำเนา, การคัดลอก" },
+                    { kanji: "コピー（を）します", meaning: "ถ่ายสำเนา, คัดลอก" },
+                    { kanji: "ご両親（ごりょうしん）", meaning: "พ่อแม่ (ของผู้อื่น)" },
+                    { kanji: "これ", meaning: "สิ่งนี้" },
+                    { kanji: "これから", meaning: "จากนี้, หลังจากนี้" },
+                    { kanji: "～ごろ", meaning: "ประมาณ..., ราว ๆ ..." },
+                    { kanji: "コンサート", meaning: "คอนเสิร์ต" },
+                    { kanji: "今回（こんど）", meaning: "ครั้งนี้" },
+                    { kanji: "今晩（こんばん）", meaning: "คืนนี้" },
+                    { kanji: "コンビニ", meaning: "ร้านสะดวกซื้อ" },
+                    { kanji: "コンピューター", meaning: "คอมพิวเตอร์" },
+                    { kanji: "魚（さかな）", meaning: "ปลา" },
+                    { kanji: "先に（さきに）", meaning: "ก่อน (เวลา), ข้างหน้า (สถานที่)" },
+                    { kanji: "さきます", meaning: "(ดอกไม้) บาน" },
+                    { kanji: "作文（さくぶん）", meaning: "เรียงความ" },
+                    { kanji: "さくら", meaning: "ดอกซากุระ" },
+                    { kanji: "さしみ", meaning: "ซาชิมิ, ปลาดิบ" },
+                    { kanji: "サッカー", meaning: "ฟุตบอล" },
+                    { kanji: "さっき", meaning: "ก่อนหน้านี้, เมื่อสักครู่" },
+                    { kanji: "雑誌（ざっし）", meaning: "นิตยสาร" },
+                    { kanji: "寒い（さむい）", meaning: "หนาว" },
+                    { kanji: "～さん", meaning: "คุณ... (เติมท้ายชื่อเพื่อแสดงความสุภาพ)" },
+                    { kanji: "サンドイッチ", meaning: "แซนด์วิช" },
+                    { kanji: "ざんねん", meaning: "น่าเสียดาย" },
+                    { kanji: "さんぽ", meaning: "การเดินเล่น" },
+                    { kanji: "さんぽ（を）します", meaning: "เดินเล่น" },
+                    { kanji: "字（じ）", meaning: "อักษร, ตัวอักษร" },
+                    { kanji: "試合（しあい）", meaning: "เกม, การแข่งขัน (กีฬา)" },
+                    { kanji: "しかし", meaning: "อย่างไรก็ตาม, แต่" },
+                    { kanji: "時間（じかん）", meaning: "เวลา" },
+                    { kanji: "試験（しけん）", meaning: "การสอบ" },
+                    { kanji: "仕事（しごと）", meaning: "งาน" },
+                    { kanji: "辞書（じしょ）", meaning: "พจนานุกรม" },
+                    { kanji: "しずか", meaning: "เงียบ, สงบ" },
+                    { kanji: "下（した）", meaning: "ข้างใต้, ข้างล่าง" },
+                    { kanji: "知っています（しっています）", meaning: "รู้, รู้จัก" },
+                    { kanji: "質問（しつもん）", meaning: "คำถาม" },
+                    { kanji: "自転車（じてんしゃ）", meaning: "จักรยาน" },
+                    { kanji: "しにます", meaning: "ตาย" },
+                    { kanji: "します", meaning: "ทำ" },
+                    { kanji: "事務室（じむしつ）", meaning: "สำนักงาน, ออฟฟิศ" },
+                    { kanji: "じゃ", meaning: "งั้น, ถ้างั้น (รูปกันเองของでは)" },
+                    { kanji: "じゃあ", meaning: "งั้น, ถ้างั้น (รูปกันเองของでは)" },
+                    { kanji: "写真（しゃしん）", meaning: "รูปถ่าย" },
+                    { kanji: "シャツ", meaning: "เสื้อเชิ้ต" },
+                    { kanji: "シャワー", meaning: "การอาบน้ำฝักบัว" },
+                    { kanji: "住所（じゅうしょ）", meaning: "ที่อยู่" },
+                    { kanji: "ジュース", meaning: "น้ำผลไม้" },
+                    { kanji: "授業（じゅぎょう）", meaning: "ชั้นเรียน, คาบเรียน" },
+                    { kanji: "宿題（しゅくだい）", meaning: "การบ้าน" },
+                    { kanji: "宿題（を）します", meaning: "ทำการบ้าน" },
+                    { kanji: "趣味（しゅみ）", meaning: "งานอดิเรก" },
+                    { kanji: "種類（しゅるい）", meaning: "ชนิด, ประเภท" },
+                    { kanji: "順番（じゅんばん）", meaning: "ลำดับ (ตัวเลข, ตัวอักษร ฯลฯ)" },
+                    { kanji: "上手（じょうず）", meaning: "เก่ง" },
+                    { kanji: "丈夫（じょうぶ）", meaning: "แข็งแรง, ทนทาน" },
+                    { kanji: "食事（しょくじ）", meaning: "การรับประทานอาหาร" },
+                    { kanji: "食事（を）します", meaning: "รับประทานอาหาร" },
+                    { kanji: "食堂（しょくどう）", meaning: "โรงอาหาร" },
+                    { kanji: "しらべます", meaning: "ตรวจสอบ" },
+                    { kanji: "資料（しりょう）", meaning: "เอกสาร, ข้อมูล" },
+                    { kanji: "白（しろ）", meaning: "สีขาว" },
+                    { kanji: "白い（しろい）", meaning: "(สี) ขาว" },
+                    { kanji: "新幹線（しんかんせん）", meaning: "รถไฟชิงกันเซน" },
+                    { kanji: "親切（しんせつ）", meaning: "ใจดี" },
+                    { kanji: "心配（しんぱい）", meaning: "ความกังวล, ความเป็นห่วง" },
+                    { kanji: "心配します（しんぱいします）", meaning: "กังวล, ห่วง" },
+                    { kanji: "新聞（しんぶん）", meaning: "หนังสือพิมพ์" },
+                    { kanji: "水（すい）", meaning: "น้ำ / วันพุธ (ตัวย่อ)" },
+                    { kanji: "水泳（すいえい）", meaning: "การว่ายน้ำ" },
+                    { kanji: "（タバコを）すいます", meaning: "สูบ (บุหรี่)" },
+                    { kanji: "水曜日（すいようび）", meaning: "วันพุธ" },
+                    { kanji: "スーツ", meaning: "สูท" },
+                    { kanji: "スーパー", meaning: "ซูเปอร์มาร์เกต" },
+                    { kanji: "好き（すき）", meaning: "ชอบ" },
+                    { kanji: "～すぎ", meaning: "เลย, ผ่าน" },
+                    { kanji: "スキー", meaning: "สกี" },
+                    { kanji: "好きなもの（すきなもの）", meaning: "ของที่ชอบ, ของโปรด" },
+                    { kanji: "（おなかが）すきます", meaning: "หิว" },
+                    { kanji: "すぐ（すぐに）", meaning: "ทันที" },
+                    { kanji: "スケート", meaning: "สเกต" },
+                    { kanji: "少し（すこし）", meaning: "นิดหน่อย, เล็กน้อย" },
+                    { kanji: "すずしい", meaning: "(อากาศ) เย็น" },
+                    { kanji: "～ずつ", meaning: "แต่ละ, ครั้งละ, อย่างละ" },
+                    { kanji: "ストーブ", meaning: "เครื่องทำความร้อน" },
+                    { kanji: "スプーン", meaning: "ช้อน" },
+                    { kanji: "スポーツ", meaning: "กีฬา" },
+                    { kanji: "ズボン", meaning: "กางเกง" },
+                    { kanji: "住みます（すみます）", meaning: "อาศัย" },
+                    { kanji: "座ります（すわります）", meaning: "นั่ง" },
+                    { kanji: "背（せ）", meaning: "ส่วนสูง (ของคน)" },
+                    { kanji: "生活（せいかつ）", meaning: "การใช้ชีวิต, วิถีชีวิต" },
+                    { kanji: "セーター", meaning: "สเวตเตอร์" },
+                    { kanji: "ぜひ", meaning: "อย่างแน่นอน" },
+                    { kanji: "せまい", meaning: "แคบ" },
+                    { kanji: "先週（せんしゅう）", meaning: "สัปดาห์ที่แล้ว" },
+                    { kanji: "先生（せんせい）", meaning: "ครู, อาจารย์" },
+                    { kanji: "ぜんぜん～ない", meaning: "ไม่...เลย" },
+                    { kanji: "洗濯（せんたく）（を）します", meaning: "ซักผ้า" },
+                    { kanji: "全部（ぜんぶ）", meaning: "ทั้งหมด, ทั้งสิ้น" },
+                    { kanji: "全部で", meaning: "รวมทั้งหมด" },
+                    { kanji: "ゾウ", meaning: "ช้าง" },
+                    { kanji: "そうじ（を）します", meaning: "ทำความสะอาด" },
+                    { kanji: "そこ", meaning: "ที่นั่น" },
+                    { kanji: "そして", meaning: "และ, แล้วก็" },
+                    { kanji: "そちら①", meaning: "ทางคุณ (คู่สนทนา)" },
+                    { kanji: "そちら②", meaning: "ที่นั่น, ตรงนั้น (ที่ผู้ฟังอยู่)" },
+                    { kanji: "そっち", meaning: "ที่นั่น (รูปกันเองของ そちら)" },
+                    { kanji: "外（そと）", meaning: "ข้างนอก" },
+                    { kanji: "その", meaning: "นั่น, นั้น (ใกล้กับผู้ฟัง)" },
+                    { kanji: "そば", meaning: "ใกล้" },
+                    { kanji: "祖父（そふ）", meaning: "ปู่, ตา (ของตน)" },
+                    { kanji: "祖母（そぼ）", meaning: "ย่า, ยาย (ของตน)" },
+                    { kanji: "空（そら）", meaning: "ท้องฟ้า" },
+                    { kanji: "それ", meaning: "ที่นั่น, ตรงนั้น (ใกล้กับผู้ฟัง)" },
+                    { kanji: "それから", meaning: "จากนั้น" },
+                    { kanji: "それでは", meaning: "ถ้าอย่างนั้น" },
+                    { kanji: "大学（だいがく）", meaning: "มหาวิทยาลัย" },
+                    { kanji: "大学１年生（だいがく いちねんせい）", meaning: "นักศึกษา (มหาวิทยาลัย) ปี 1" },
+                    { kanji: "だいじょうぶ", meaning: "ไม่มีปัญหา, ไม่เป็นไร" },
+                    { kanji: "大好き（だいすき）", meaning: "ชอบมาก" },
+                    { kanji: "大切（たいせつ）", meaning: "สำคัญ" },
+                    { kanji: "たいてい", meaning: "ปกติ" },
+                    { kanji: "たいへん", meaning: "อย่างมาก" },
+                    { kanji: "大変（たいへん）", meaning: "ลำบาก, ยากเย็น" },
+                    { kanji: "台湾（たいわん）", meaning: "ไต้หวัน" },
+                    { kanji: "（せが）高い①", meaning: "(ตัว) สูง" },
+                    { kanji: "（ねだんが）高い②", meaning: "(ราคา) สูง, แพง" },
+                    { kanji: "たくさん", meaning: "มาก, เยอะ" },
+                    { kanji: "タクシー", meaning: "แท็กซี่" },
+                    { kanji: "～だけ", meaning: "…เท่านั้น, เพียง..., แค่..." },
+                    { kanji: "（手紙を）出します①", meaning: "ส่ง (จดหมาย)" },
+                    { kanji: "（レポートを）出します②", meaning: "ส่ง (รายงาน)" },
+                    { kanji: "正しい（ただしい）", meaning: "ถูกต้อง" },
+                    { kanji: "～たち", meaning: "คําเติมท้ายให้เป็นรูปพหูพจน์ (ใช้กับคน)" },
+                    { kanji: "立ちます（たちます）", meaning: "ยืน" },
+                    { kanji: "建物（たてもの）", meaning: "ตึก, อาคาร" },
+                    { kanji: "たな", meaning: "ชั้นวางของ, หิ้ง" },
+                    { kanji: "楽しい（たのしい）", meaning: "สนุก" },
+                    { kanji: "楽しみ（たのしみ）", meaning: "ความสนุก" },
+                    { kanji: "たぶん", meaning: "อาจจะ, บางที" },
+                    { kanji: "食べます（たべます）", meaning: "กิน" },
+                    { kanji: "食べ物（たべもの）", meaning: "อาหาร, ของกิน" },
+                    { kanji: "たまご", meaning: "ไข่" },
+                    { kanji: "だめ①", meaning: "อย่า, ห้าม" },
+                    { kanji: "だめ②", meaning: "ไม่ได้" },
+                    { kanji: "だれ", meaning: "ใคร" },
+                    { kanji: "だれか", meaning: "ใครสักคน" },
+                    { kanji: "だれとも", meaning: "กับใครก็ตาม (ใช้กับคำกริยารูปปฏิเสธ)" },
+                    { kanji: "だれにも", meaning: "ใครก็ตาม (ใช้กับคำกริยารูปปฏิเสธ)" },
+                    { kanji: "だれも", meaning: "ใครก็ตาม (ใช้กับคำกริยารูปปฏิเสธ)" },
+                    { kanji: "たんじょう日（び）", meaning: "วันเกิด" },
+                    { kanji: "ダンス", meaning: "การเต้น" },
+                    { kanji: "小さい（ちいさい）", meaning: "เล็ก" },
+                    { kanji: "チェックインします", meaning: "เช็กอิน" },
+                    { kanji: "近い（ちかい）", meaning: "ใกล้" },
+                    { kanji: "ちがいます", meaning: "แตกต่าง, ผิด" },
+                    { kanji: "近く（ちかく）", meaning: "ความใกล้เคียง" },
+                    { kanji: "地下鉄（ちかてつ）", meaning: "รถไฟใต้ดิน" },
+                    { kanji: "チケット", meaning: "ตั๋ว" },
+                    { kanji: "父（ちち）", meaning: "พ่อ (ของตน)" },
+                    { kanji: "中国語（ちゅうごくご）", meaning: "ภาษาจีน" },
+                    { kanji: "中国人（ちゅうごくじん）", meaning: "ชาวจีน" },
+                    { kanji: "注文します（ちゅうもんします）", meaning: "สั่ง (อาหาร, ของทางออนไลน์ ฯลฯ)" },
+                    { kanji: "ちょうど", meaning: "พอดี" },
+                    { kanji: "ちょっと", meaning: "เล็กน้อย, หน่อย, นิดหนึ่ง (รูปกันเองของ 少し)" },
+                    { kanji: "使います（つかいます）", meaning: "ใช้" },
+                    { kanji: "つかれます", meaning: "เหนื่อย" }
+                ];
+
+                let currentKanji = null;
+
+                // ระบบแปลง่าย ๆ (ตัวอย่าง ไม่ใช้ API)
+                const dictionary = {
+                    "ไอศกรีม": {
+                        ja: "アイスクリーム",
+                        zh: "冰淇淋",
+                        th: "ไอศกรีม",
+                        en: "ice cream"
+                    },
+                    "ระหว่าง": {
+                        ja: "間（あいだ）",
+                        zh: "之间",
+                        th: "ระหว่าง",
+                        en: "between"
+                    },
+                    "พบ, เจอ": {
+                        ja: "会います（あいます）",
+                        zh: "见面",
+                        th: "พบ, เจอ",
+                        en: "meet"
+                    },
+                    "สีฟ้า": {
+                        ja: "青（あお）",
+                        zh: "蓝色",
+                        th: "สีฟ้า",
+                        en: "blue"
+                    },
+                    "สีแดง": {
+                        ja: "赤（あか）",
+                        zh: "红色",
+                        th: "สีแดง",
+                        en: "red"
+                    },
+                    "ร่าเริง, สดใส": {
+                        ja: "明るい（あかるい）",
+                        zh: "开朗",
+                        th: "ร่าเริง, สดใส",
+                        en: "cheerful, bright"
+                    },
+                    "เปิด": {
+                        ja: "開けます（ひらけます）",
+                        zh: "打开",
+                        th: "เปิด",
+                        en: "open"
+                    },
+                    "ให้": {
+                        ja: "上げます（あげます）",
+                        zh: "给",
+                        th: "ให้",
+                        en: "give"
+                    },
+                    "ตอนเช้า": {
+                        ja: "朝（あさ）",
+                        zh: "早晨",
+                        th: "ตอนเช้า",
+                        en: "morning"
+                    },
+                    "มะรืน": {
+                        ja: "あさって",
+                        zh: "后天",
+                        th: "มะรืน",
+                        en: "day after tomorrow"
+                    },
+                    "เท้า, ขา": {
+                        ja: "足（あし）",
+                        zh: "脚",
+                        th: "เท้า, ขา",
+                        en: "foot, leg"
+                    },
+                    "พรุ่งนี้": {
+                        ja: "明日（あした）",
+                        zh: "明天",
+                        th: "พรุ่งนี้",
+                        en: "tomorrow"
+                    },
+                    "ตรงโน้น": {
+                        ja: "あそこ",
+                        zh: "那边",
+                        th: "ตรงโน้น",
+                        en: "over there"
+                    },
+                    "เที่ยว, เล่น": {
+                        ja: "遊びます（あそびます）",
+                        zh: "玩耍",
+                        th: "เที่ยว, เล่น",
+                        en: "play, hang out"
+                    },
+                    "อบอุ่น": {
+                        ja: "あたたかい",
+                        zh: "温暖",
+                        th: "อบอุ่น",
+                        en: "warm"
+                    },
+                    "ใหม่": {
+                        ja: "新しい（あたらしい）",
+                        zh: "新的",
+                        th: "ใหม่",
+                        en: "new"
+                    },
+                    "ทางโน้น, ตรงโน้น": {
+                        ja: "あちら",
+                        zh: "那边",
+                        th: "ทางโน้น, ตรงโน้น",
+                        en: "over there"
+                    },
+                    "(อากาศ) ร้อน": {
+                        ja: "暑い（あつい）",
+                        zh: "热",
+                        th: "ร้อน (อากาศ)",
+                        en: "hot (weather)"
+                    },
+                    "ทางโน้น, ตรงโน้น (กันเอง)": {
+                        ja: "あっち",
+                        zh: "那边 (口语)",
+                        th: "ทางโน้น (กันเอง)",
+                        en: "over there (casual)"
+                    },
+                    "หลังจาก": {
+                        ja: "あと～",
+                        zh: "之后",
+                        th: "หลังจาก",
+                        en: "after ~"
+                    },
+                    "พี่ชาย (ของตน)": {
+                        ja: "兄（あに）",
+                        zh: "哥哥",
+                        th: "พี่ชาย (ของตน)",
+                        en: "older brother (own)"
+                    },
+                    "พี่สาว (ของตน)": {
+                        ja: "姉（あね）",
+                        zh: "姐姐",
+                        th: "พี่สาว (ของตน)",
+                        en: "older sister (own)"
+                    },
+                    "โน่น, โน้น": {
+                        ja: "あの",
+                        zh: "那个",
+                        th: "โน่น, โน้น",
+                        en: "that (over there)"
+                    },
+                    "อาบน้ำ (ฝักบัว)": {
+                        ja: "（シャワーを）あびます",
+                        zh: "洗澡 (淋浴)",
+                        th: "อาบน้ำ (ฝักบัว)",
+                        en: "take a shower"
+                    },
+                    "อันตราย": {
+                        ja: "あぶない",
+                        zh: "危险",
+                        th: "อันตราย",
+                        en: "dangerous"
+                    },
+                    "ไม่ค่อย": {
+                        ja: "あまり～ない",
+                        zh: "不太...",
+                        th: "ไม่ค่อย",
+                        en: "not much"
+                    },
+                    "ฝน": {
+                        ja: "雨（あめ）",
+                        zh: "雨",
+                        th: "ฝน",
+                        en: "rain"
+                    },
+                    "ชาวอเมริกัน": {
+                        ja: "アメリカ人（じん）",
+                        zh: "美国人",
+                        th: "ชาวอเมริกัน",
+                        en: "American"
+                    },
+                    "ซัก, ล้าง": {
+                        ja: "洗います（あらいます）",
+                        zh: "洗",
+                        th: "ซัก, ล้าง",
+                        en: "wash"
+                    },
+                    "มี, อยู่ (สิ่งไม่มีชีวิต)": {
+                        ja: "あります",
+                        zh: "有",
+                        th: "มี, อยู่ (สิ่งไม่มีชีวิต)",
+                        en: "exist, have"
+                    },
+                    "เดินมา": {
+                        ja: "歩いてきます",
+                        zh: "走过来",
+                        th: "เดินมา",
+                        en: "come walking"
+                    },
+                    "เดิน": {
+                        ja: "歩きます（あるきます）",
+                        zh: "走",
+                        th: "เดิน",
+                        en: "walk"
+                    },
+                    "งานพาร์ตไทม์": {
+                        ja: "アルバイト",
+                        zh: "兼职",
+                        th: "งานพาร์ตไทม์",
+                        en: "part-time job"
+                    },
+                    "ที่โน่น, ตรงโน้น": {
+                        ja: "あれ",
+                        zh: "那边",
+                        th: "ที่โน่น, ตรงโน้น",
+                        en: "that (over there)"
+                    },
+                    "ดี": {
+                        ja: "いい",
+                        zh: "好",
+                        th: "ดี",
+                        en: "good"
+                    },
+                    "ไม่ใช่, เปล่า": {
+                        ja: "いいえ",
+                        zh: "不是",
+                        th: "ไม่ใช่, เปล่า",
+                        en: "no"
+                    },
+                    "พูด, บอก": {
+                        ja: "言います（いいます）",
+                        zh: "说",
+                        th: "พูด, บอก",
+                        en: "say, tell"
+                    },
+                    "บ้าน": {
+                        ja: "家（いえ）",
+                        zh: "家",
+                        th: "บ้าน",
+                        en: "house"
+                    },
+                    "อย่างไร (สุภาพ)": {
+                        ja: "いかが",
+                        zh: "如何 (礼貌)",
+                        th: "อย่างไร (สุภาพ)",
+                        en: "how (polite)"
+                    },
+                    "ไป": {
+                        ja: "行きます（いきます）",
+                        zh: "去",
+                        th: "ไป",
+                        en: "go"
+                    },
+                    "(อายุ) เท่าไร": {
+                        ja: "いくつ①",
+                        zh: "几岁",
+                        th: "(อายุ) เท่าไร",
+                        en: "how old"
+                    },
+                    "(จำนวน) เท่าไร": {
+                        ja: "いくつ②",
+                        zh: "多少",
+                        th: "(จำนวน) เท่าไร",
+                        en: "how many"
+                    },
+                    "ราคา, เท่าไร": {
+                        ja: "いくら",
+                            zh: "多少钱",
+                                th: "ราคา, เท่าไร",
+                                    en: "how much"
+                    },
+                    "แพทย์, หมอ": {
+                        ja: "医（い）",
+                            zh: "医生",
+                                th: "แพทย์, หมอ",
+                                    en: "doctor"
+                    },
+                    "คน, ผู้": {
+                        ja: "者（しゃ）",
+                            zh: "人",
+                                th: "คน, ผู้",
+                                    en: "person"
+                    },
+                    "เก้าอี้": {
+                        ja: "いす",
+                            zh: "椅子",
+                                th: "เก้าอี้",
+                                    en: "chair"
+                    },
+                    "ยุ่ง": {
+                        ja: "いそがしい",
+                            zh: "忙",
+                                th: "ยุ่ง",
+                                    en: "busy"
+                    },
+                    "รีบ, ฉับพลัน": {
+                        ja: "急（いそ）",
+                            zh: "急",
+                                th: "รีบ, ฉับพลัน",
+                                    en: "hurry"
+                    },
+                    "เจ็บ, ปวด": {
+                        ja: "いたい",
+                            zh: "痛",
+                                th: "เจ็บ, ปวด",
+                                    en: "painful"
+                    },
+                    "ประเทศอิตาลี": {
+                        ja: "イタリア",
+                            zh: "意大利",
+                                th: "ประเทศอิตาลี",
+                                    en: "Italy"
+                    },
+                    "ที่สุด": {
+                        ja: "いちばん",
+                            zh: "最",
+                                th: "ที่สุด",
+                                    en: "best"
+                    },
+                    "เมื่อไร": {
+                        ja: "いつ",
+                            zh: "什么时候",
+                                th: "เมื่อไร",
+                                    en: "when"
+                    },
+                    "ด้วยกัน": {
+                        ja: "いっしょに",
+                            zh: "一起",
+                                th: "ด้วยกัน",
+                                    en: "together"
+                    },
+                    "เสมอ ๆ": {
+                        ja: "いつも",
+                            zh: "总是",
+                                th: "เสมอ ๆ",
+                                    en: "always"
+                    },
+                    "สุนัข": {
+                        ja: "犬（いぬ）",
+                            zh: "狗",
+                                th: "สุนัข",
+                                    en: "dog"
+                    },
+                    "ตอนนี้, ปัจจุบัน": {
+                        ja: "今（いま）",
+                            zh: "现在",
+                                th: "ตอนนี้, ปัจจุบัน",
+                                    en: "now"
+                    },
+                    "หลังจากนี้": {
+                        ja: "今から（いまから）",
+                            zh: "从现在开始",
+                                th: "หลังจากนี้",
+                                    en: "from now"
+                    },
+                    "มี, อยู่ (สิ่งมีชีวิต)": {
+                        ja: "います",
+                            zh: "有",
+                                th: "มี, อยู่ (สิ่งมีชีวิต)",
+                                    en: "exist"
+                    },
+                    "น้องสาว": {
+                        ja: "妹（いもうと）",
+                            zh: "妹妹",
+                                th: "น้องสาว",
+                                    en: "younger sister"
+                    },
+                    "ตนเอง, ด้วยตัวเอง": {
+                        ja: "自（じ）",
+                            zh: "自己",
+                                th: "ตนเอง, ด้วยตัวเอง",
+                                    en: "self"
+                    },
+                    "ส่วน, แบ่ง, นาที": {
+                        ja: "分（ぶん）",
+                            zh: "部分, 分钟",
+                                th: "ส่วน, แบ่ง, นาที",
+                                    en: "part, minute"
+                    },
+                    "พูด, คำพูด": {
+                        ja: "言（い）",
+                            zh: "说, 话",
+                                th: "พูด, คำพูด",
+                                    en: "say, word"
+                    },
+                    "คน, มนุษย์": {
+                        ja: "人（ひと）",
+                            zh: "人",
+                                th: "คน, มนุษย์",
+                                    en: "person, human"
+                    },
+                    "เข้า": {
+                        ja: "入（い）",
+                            zh: "进入",
+                                th: "เข้า",
+                                    en: "enter"
+                    },
+                    "ปาก, ทางเข้า/ออก": {
+                        ja: "口（ぐち）",
+                            zh: "口, 出入口",
+                                th: "ปาก, ทางเข้า/ออก",
+                                    en: "mouth, entrance/exit"
+                    },
+                    "ต้องการ": {
+                        ja: "いります",
+                            zh: "需要",
+                                th: "ต้องการ",
+                                    en: "need"
+                    },
+                    "ใส่, บรรจุ": {
+                        ja: "入（い）れます",
+                            zh: "放入",
+                                th: "ใส่, บรรจุ",
+                                    en: "put in"
+                    },
+                    "ต่าง ๆ นานา": {
+                        ja: "いろいろ",
+                            zh: "各种各样",
+                                th: "ต่าง ๆ นานา",
+                                    en: "various"
+                    },
+                    "อินเทอร์เน็ต": {
+                        ja: "インターネット",
+                            zh: "互联网",
+                                th: "อินเทอร์เน็ต",
+                                    en: "internet"
+                    },
+                    "เล่นอินเทอร์เน็ต": {
+                        ja: "インターネット（を）します",
+                            zh: "上网",
+                                th: "เล่นอินเทอร์เน็ต",
+                                    en: "surf the internet"
+                    },
+                    "บน, ข้างบน": {
+                        ja: "上（うえ）",
+                            zh: "上",
+                                th: "บน, ข้างบน",
+                                    en: "above"
+                    },
+                    "ข้างหลัง": {
+                        ja: "うしろ",
+                            zh: "后面",
+                                th: "ข้างหลัง",
+                                    en: "behind"
+                    },
+                    "เพลง": {
+                        ja: "歌（うた）",
+                            zh: "歌",
+                                th: "เพลง",
+                                    en: "song"
+                    },
+                    "ร้องเพลง": {
+                        ja: "歌（うた）います",
+                            zh: "唱歌",
+                                th: "ร้องเพลง",
+                                    en: "sing"
+                    },
+                    "เกิด, สร้างขึ้น": {
+                        ja: "生（う）まれます",
+                            zh: "出生, 产生",
+                                th: "เกิด, สร้างขึ้น",
+                                    en: "be born, create"
+                    },
+                    "ทะเล, มหาสมุทร": {
+                        ja: "海（うみ）",
+                            zh: "海洋",
+                                th: "ทะเล, มหาสมุทร",
+                                    en: "sea, ocean"
+                    },
+                    "ด้านหลัง": {
+                        ja: "うら",
+                            zh: "后面",
+                                th: "ด้านหลัง",
+                                    en: "back"
+                    },
+                    "ขาย": {
+                        ja: "売（う）ります",
+                            zh: "卖",
+                                th: "ขาย",
+                                    en: "sell"
+                    },
+                    "เสียงดัง, หนวกหู": {
+                        ja: "うるさい",
+                            zh: "吵闹",
+                                th: "เสียงดัง, หนวกหู",
+                                    en: "noisy"
+                    },
+                    "ดีใจ, ยินดี": {
+                        ja: "うれしい",
+                            zh: "高兴",
+                                th: "ดีใจ, ยินดี",
+                                    en: "happy"
+                    },
+                    "อือ (รูปกันเองของ はい)": {
+                        ja: "うん",
+                            zh: "嗯",
+                                th: "อือ (รูปกันเองของ はい)",
+                                    en: "yeah"
+                    },
+                    "รูปวาด": {
+                        ja: "え",
+                            zh: "画",
+                                th: "รูปวาด",
+                                    en: "drawing"
+                    },
+                    "ภาพยนตร์": {
+                        ja: "映（えい）画（が）",
+                            zh: "电影",
+                                th: "ภาพยนตร์",
+                                    en: "movie"
+                    },
+                    "โรงภาพยนตร์": {
+                        ja: "映（えい）画（が）館（かん）",
+                            zh: "电影院",
+                                th: "โรงภาพยนตร์",
+                                    en: "cinema"
+                    },
+                    "ภาษาอังกฤษ": {
+                        ja: "英（えい）語（ご）",
+                            zh: "英语",
+                                th: "ภาษาอังกฤษ",
+                                    en: "English"
+                    },
+                    "ค่ะ/ครับ": {
+                        ja: "ええ（＝はい）",
+                            zh: "是的",
+                                th: "ค่ะ/ครับ",
+                                    en: "yes"
+                    },
+                    "สถานีรถไฟ": {
+                        ja: "駅（えき）",
+                            zh: "车站",
+                                th: "สถานีรถไฟ",
+                                    en: "station"
+                    },
+                    "หน้าสถานีรถไฟ": {
+                        ja: "駅（えき）前（まえ）",
+                            zh: "车站前",
+                                th: "หน้าสถานีรถไฟ",
+                                    en: "in front of station"
+                    },
+                    "ดินสอ": {
+                        ja: "えんぴつ",
+                            zh: "铅笔",
+                                th: "ดินสอ",
+                                    en: "pencil"
+                    },
+                    "อร่อย": {
+                        ja: "おいしい",
+                            zh: "美味",
+                                th: "อร่อย",
+                                    en: "delicious"
+                    },
+                    "เยอะ, มาก": {
+                        ja: "多（おお）い",
+                            zh: "多",
+                                th: "เยอะ, มาก",
+                                    en: "many, much"
+                    },
+                    "ใหญ่": {
+                        ja: "大（おお）きい",
+                            zh: "大",
+                                th: "ใหญ่",
+                                    en: "big"
+                    },
+                    "(คน) เยอะ, จำนวนมาก": {
+                        ja: "おおぜい",
+                            zh: "很多人",
+                                th: "(คน) เยอะ, จำนวนมาก",
+                                    en: "many people"
+                    },
+                    "คุณแม่ (ของผู้อื่น)": {
+                        ja: "お母（かあ）さん",
+                            zh: "母亲",
+                                th: "คุณแม่ (ของผู้อื่น)",
+                                    en: "mother (other)"
+                    },
+                    "ขนม": {
+                        ja: "おかし",
+                            zh: "零食",
+                                th: "ขนม",
+                                    en: "snack"
+                    },
+                    "เงิน": {
+                        ja: "お金（かね）",
+                            zh: "钱",
+                                th: "เงิน",
+                                    en: "money"
+                    },
+                    "ตื่น": {
+                        ja: "起（お）きます",
+                            zh: "起床",
+                                th: "ตื่น",
+                                    en: "wake up"
+                    },
+                    "วาง (สิ่งของ)": {
+                        ja: "（物（もの）を）おきます",
+                            zh: "放置（物品）",
+                                th: "วาง (สิ่งของ)",
+                                    en: "put (thing)"
+                    },
+                    "แขก, ลูกค้า (รูปสุภาพของ 客（きゃく）)": {
+                        ja: "お客（きゃく）さん",
+                            zh: "客人",
+                                th: "แขก, ลูกค้า (รูปสุภาพของ 客（きゃく）)",
+                                    en: "guest, customer"
+                    },
+                    "ภรรยา (ของผู้อื่น)": {
+                        ja: "奥（おく）さん",
+                            zh: "妻子",
+                                th: "ภรรยา (ของผู้อื่น)",
+                                    en: "wife (other)"
+                    },
+                    "ยา (รูปสุภาพของ 薬（くすり）)": {
+                        ja: "お薬（くすり）",
+                            zh: "药",
+                                th: "ยา (รูปสุภาพของ 薬（くすり）)",
+                                    en: "medicine (polite)"
+                    },
+                    "ส่ง": {
+                        ja: "送（おく）ります",
+                            zh: "送",
+                                th: "ส่ง",
+                                    en: "send"
+                    },
+                    "เหล้า": {
+                        ja: "お酒（さけ）",
+                            zh: "酒",
+                                th: "เหล้า",
+                                    en: "alcohol"
+                    },
+                    "คุณปู่, คุณตา (ของผู้อื่น)": {
+                        ja: "おじいさん①",
+                            zh: "爷爷",
+                                th: "คุณปู่, คุณตา (ของผู้อื่น)",
+                                    en: "grandfather (other)"
+                    },
+                    "คุณลุง (เรียกผู้ชายที่อายุมาก)": {
+                        ja: "おじいさん②",
+                            zh: "老伯",
+                                th: "คุณลุง (เรียกผู้ชายที่อายุมาก)",
+                                    en: "elder man"
+                    },
+                    "เวลา (รูปสุภาพของ 時間（じかん）)": {
+                        ja: "お時間（じかん）",
+                            zh: "时间（礼貌）",
+                                th: "เวลา (รูปสุภาพของ 時間（じかん）)",
+                                    en: "time (polite)"
+                    },
+                    "ของที่ชอบ (รูปสุภาพของ 好きなもの)": {
+                        ja: "お好（す）きなもの",
+                            zh: "喜欢的东西（礼貌）",
+                                th: "ของที่ชอบ (รูปสุภาพของ 好きなもの)",
+                                    en: "favorite thing (polite)"
+                    },
+                    "ช้า, สาย, ดึก": {
+                        ja: "おそい",
+                            zh: "慢, 晚",
+                                th: "ช้า, สาย, ดึก",
+                                    en: "late"
+                    },
+                    "จนดึก": {
+                        ja: "おそくまで",
+                            zh: "到很晚",
+                                th: "จนดึก",
+                                    en: "until late"
+                    },
+                    "น้ำชา": {
+                        ja: "お茶（ちゃ）",
+                            zh: "茶",
+                                th: "น้ำชา",
+                                    en: "tea"
+                    },
+                    "สามี": {
+                        ja: "夫（おっと）",
+                            zh: "丈夫",
+                                th: "สามี",
+                                    en: "husband"
+                    },
+                    "วัด": {
+                        ja: "おてら",
+                            zh: "寺庙",
+                                th: "วัด",
+                                    en: "temple"
+                    },
+                    "คุณพ่อ (ของผู้อื่น)": {
+                        ja: "お父（とう）さん",
+                            zh: "父亲",
+                                th: "คุณพ่อ (ของผู้อื่น)",
+                                    en: "father (other)"
+                    },
+                    "น้องชาย (ของตน)": {
+                        ja: "弟（おとうと）",
+                            zh: "弟弟",
+                                th: "น้องชาย (ของตน)",
+                                    en: "younger brother"
+                    },
+                    "น้องชาย (ของผู้อื่น)": {
+                        ja: "弟（おとうと）さん",
+                            zh: "弟弟（别人）",
+                                th: "น้องชาย (ของผู้อื่น)",
+                                    en: "younger brother (other)"
+                    },
+                    "เด็กผู้ชาย": {
+                        ja: "男（おとこ）の子",
+                            zh: "男孩",
+                                th: "เด็กผู้ชาย",
+                                    en: "boy"
+                    },
+                    "ผู้ชาย": {
+                        ja: "男（おとこ）の人（ひと）",
+                            zh: "男人",
+                                th: "ผู้ชาย",
+                                    en: "man"
+                    },
+                    "เมื่อวานซืน": {
+                        ja: "おととい",
+                            zh: "前天",
+                                th: "เมื่อวานซืน",
+                                    en: "the day before yesterday"
+                    },
+                    "ท้อง": {
+                        ja: "おなか",
+                            zh: "肚子",
+                                th: "ท้อง",
+                                    en: "stomach"
+                    },
+                    "พี่ชาย (ของผู้อื่น)": {
+                        ja: "お兄（にい）さん",
+                            zh: "哥哥",
+                                th: "พี่ชาย (ของผู้อื่น)",
+                                    en: "older brother (other)"
+                    },
+                    "พี่สาว (ของผู้อื่น)": {
+                        ja: "お姉（ねえ）さん",
+                            zh: "姐姐",
+                                th: "พี่สาว (ของผู้อื่น)",
+                                    en: "older sister (other)"
+                    },
+                    "คุณย่า, คุณยาย (ของผู้อื่น)": {
+                        ja: "おばあさん①",
+                            zh: "祖母",
+                                th: "คุณย่า, คุณยาย (ของผู้อื่น)",
+                                    en: "grandmother (other)"
+                    },
+                    "คุณป้า (เรียกผู้หญิงที่อายุมาก)": {
+                        ja: "おばあさん②",
+                            zh: "大妈",
+                                th: "คุณป้า (เรียกผู้หญิงที่อายุมาก)",
+                                    en: "elder woman"
+                    },
+                    "อ่างอาบน้ำ": {
+                        ja: "おふろ",
+                            zh: "浴缸",
+                                th: "อ่างอาบน้ำ",
+                                    en: "bathtub"
+                    },
+                    "ข้าวกล่อง (รูปสุภาพของ 弁当（べんとう）)": {
+                        ja: "お弁（べん）当（とう）",
+                            zh: "便当",
+                                th: "ข้าวกล่อง (รูปสุภาพของ 弁当（べんとう）)",
+                                    en: "boxed lunch"
+                    },
+                    "จำ, จำได้": {
+                        ja: "おぼえます",
+                            zh: "记住",
+                                th: "จำ, จำได้",
+                                    en: "memorize"
+                    },
+                    "ของฝาก": {
+                        ja: "おみやげ",
+                            zh: "纪念品",
+                                th: "ของฝาก",
+                                    en: "souvenir"
+                    },
+                    "หนัก": {
+                        ja: "重（おも）い",
+                            zh: "重",
+                                th: "หนัก",
+                                    en: "heavy"
+                    },
+                    "คิด": {
+                        ja: "思（おも）います",
+                            zh: "想",
+                                th: "คิด",
+                                    en: "think"
+                    },
+                    "สนุก, น่าสนใจ": {
+                        ja: "おもしろい",
+                            zh: "有趣",
+                                th: "สนุก, น่าสนใจ",
+                                    en: "interesting, fun"
+                    },
+                    "ว่ายน้ำ": {
+                        ja: "泳（およ）ぎます",
+                            zh: "游泳",
+                                th: "ว่ายน้ำ",
+                                    en: "swim"
+                    },
+                    "ลง (จากพาหนะ เช่น รถประจำทาง รถไฟ)": {
+                        ja: "降（お）ります",
+                            zh: "下车",
+                                th: "ลง (จากพาหนะ เช่น รถประจำทาง รถไฟ)",
+                                    en: "get off"
+                    },
+                    "เสร็จ, จบ": {
+                        ja: "終（お）わります",
+                            zh: "结束",
+                                th: "เสร็จ, จบ",
+                                    en: "finish"
+                    },
+                    "เพลง, ดนตรี": {
+                        ja: "音（おん）楽（がく）",
+                            zh: "音乐",
+                                th: "เพลง, ดนตรี",
+                                    en: "music"
+                    },
+                    "บ่อน้ำร้อน": {
+                        ja: "おんせん",
+                            zh: "温泉",
+                                th: "บ่อน้ำร้อน",
+                                    en: "hot spring"
+                    },
+                    "ผู้หญิง": {
+                        ja: "女（おんな）の人（ひと）",
+                            zh: "女性",
+                                th: "ผู้หญิง",
+                                    en: "woman"
+                    },
+                    "เครื่องดื่ม (รูปสุภาพของ 飲み物)": {
+                        ja: "お飲（の）み物（もの）",
+                            zh: "饮料（礼貌）",
+                                th: "เครื่องดื่ม (รูปสุภาพของ 飲み物)",
+                                    en: "drink (polite)"
+                    },
+                    "เรื่องเล่า, คำพูด (รูปสุภาพของ 話)": {
+                        ja: "お話（はなし）",
+                            zh: "话（礼貌）",
+                                th: "เรื่องเล่า, คำพูด (รูปสุภาพของ 話)",
+                                    en: "story, speech (polite)"
+                    },
+                    "ตัวย่อของวันอังคาร": {
+                        ja: "火（か）",
+                            zh: "星期二简写",
+                                th: "ตัวย่อของวันอังคาร",
+                                    en: "abbreviation of Tuesday"
+                    },
+                    "การประชุม": {
+                        ja: "会（かい）議（ぎ）",
+                            zh: "会议",
+                                th: "การประชุม",
+                                    en: "meeting"
+                    },
+                    "ประชุม": {
+                        ja: "会（かい）議（ぎ）（を）します",
+                            zh: "开会",
+                                th: "ประชุม",
+                                    en: "hold a meeting"
+                    },
+                    "ห้องประชุม": {
+                        ja: "会（かい）議（ぎ）室（しつ）",
+                            zh: "会议室",
+                                th: "ห้องประชุม",
+                                    en: "meeting room"
+                    },
+                    "ต่างประเทศ": {
+                        ja: "外国（がいこく）",
+                            zh: "外国",
+                                th: "ต่างประเทศ",
+                                    en: "foreign country"
+                    },
+                    "บริษัท": {
+                        ja: "会社（かいしゃ）",
+                            zh: "公司",
+                                th: "บริษัท",
+                                    en: "company"
+                    },
+                    "หอประชุม, สถานที่จัดงาน, บริเวณที่จัดงาน": {
+                        ja: "会場（かいじょう）",
+                            zh: "会场",
+                                th: "หอประชุม, สถานที่จัดงาน, บริเวณที่จัดงาน",
+                                    en: "venue"
+                    },
+                    "ซื้อ": {
+                        ja: "買（か）います",
+                            zh: "买",
+                                th: "ซื้อ",
+                                    en: "buy"
+                    },
+                    "การซื้อของ": {
+                        ja: "買い物（かいもの）",
+                            zh: "购物",
+                                th: "การซื้อของ",
+                                    en: "shopping"
+                    },
+                    "ซื้อของ": {
+                        ja: "買い物（かいもの）（を）します",
+                            zh: "购物",
+                                th: "ซื้อของ",
+                                    en: "do shopping"
+                    },
+                    "กลับมา": {
+                        ja: "帰（かえ）ってきます",
+                            zh: "回来",
+                                th: "กลับมา",
+                                    en: "come back"
+                    },
+                    "กลับ": {
+                        ja: "帰（かえ）ります",
+                            zh: "回去",
+                                th: "กลับ",
+                                    en: "go back"
+                    },
+                    "หน้า": {
+                        ja: "顔（かお）",
+                            zh: "脸",
+                                th: "หน้า",
+                                    en: "face"
+                    },
+                    "ใช้ (เงิน)": {
+                        ja: "（お金（かね）が）かかります①",
+                            zh: "花费（金钱）",
+                                th: "ใช้ (เงิน)",
+                                    en: "cost (money)"
+                    },
+                    "ใช้ (เวลา)": {
+                        ja: "（時間（じかん）が）かかります②",
+                            zh: "花费（时间）",
+                                th: "ใช้ (เวลา)",
+                                    en: "take (time)"
+                    },
+                    "กุญแจ": {
+                        ja: "かぎ",
+                            zh: "钥匙",
+                                th: "กุญแจ",
+                                    en: "key"
+                    },
+                    "เขียน": {
+                        ja: "書（か）きます",
+                            zh: "写",
+                                th: "เขียน",
+                                    en: "write"
+                    },
+                    "วาด (รูป)": {
+                        ja: "（えを）かきます",
+                            zh: "画画",
+                                th: "วาด (รูป)",
+                                    en: "draw"
+                    },
+                    "นักเรียน": {
+                        ja: "学生（がくせい）",
+                            zh: "学生",
+                                th: "นักเรียน",
+                                    en: "student"
+                    },
+                    "หมุน (โทรศัพท์)": {
+                        ja: "（電話（でんわ）を) かけます",
+                            zh: "拨打电话",
+                                th: "หมุน (โทรศัพท์)",
+                                    en: "make a call"
+                    },
+                    "ร่ม": {
+                        ja: "かさ",
+                            zh: "伞",
+                                th: "ร่ม",
+                                    en: "umbrella"
+                    },
+                    "ให้ยืม": {
+                        ja: "かします",
+                            zh: "借给",
+                                th: "ให้ยืม",
+                                    en: "lend"
+                    },
+                    "ครอบครัว": {
+                        ja: "家族（かぞく）",
+                            zh: "家庭",
+                                th: "ครอบครัว",
+                                    en: "family"
+                    },
+                    "คน (รูปสุภาพของ 人（ひと）)": {
+                        ja: "方（かた）",
+                            zh: "人（礼貌）",
+                                th: "คน (รูปสุภาพของ 人（ひと）)",
+                                    en: "person (polite)"
+                    },
+                    "พวก..., เหล่า... (รูปสุภาพของ ～たち)": {
+                        ja: "～方（がた）",
+                            zh: "～们（礼貌）",
+                                th: "พวก..., เหล่า... (รูปสุภาพของ ～たち)",
+                                    en: "group of people (polite)"
+                    },
+                    "รูปร่าง": {
+                        ja: "形（かたち）",
+                            zh: "形状",
+                                th: "รูปร่าง",
+                                    en: "shape"
+                    },
+                    "โรงเรียน": {
+                        ja: "学校（がっこう）",
+                            zh: "学校",
+                                th: "โรงเรียน",
+                                    en: "school"
+                    },
+                    "ซื้อมา": {
+                        ja: "買（か）ってきます",
+                            zh: "买来",
+                                th: "ซื้อมา",
+                                    en: "buy and bring"
+                    },
+                    "กระเป๋า": {
+                        ja: "かばん",
+                            zh: "包",
+                                th: "กระเป๋า",
+                                    en: "bag"
+                    },
+                    "ใส่, สวม (ของประดับศีรษะ เช่น หมวก หมวกกันน็อก)": {
+                        ja: "（ぼうしを）かぶります",
+                            zh: "戴（帽子）",
+                                th: "ใส่, สวม (ของประดับศีรษะ เช่น หมวก หมวกกันน็อก)",
+                                    en: "wear (hat/helmet)"
+                    },
+                    "กระดาษ": {
+                        ja: "紙（かみ）",
+                            zh: "纸",
+                                th: "กระดาษ",
+                                    en: "paper"
+                    },
+                    "การเล่านิทานประกอบภาพ": {
+                        ja: "紙しばい（かみしばい）",
+                            zh: "纸芝居",
+                                th: "การเล่านิทานประกอบภาพ",
+                                    en: "picture story show"
+                    },
+                    "กล้อง": {
+                        ja: "カメラ",
+                            zh: "相机",
+                                th: "กล้อง",
+                                    en: "camera"
+                    },
+                    "จาก...": {
+                        ja: "～から",
+                            zh: "从…",
+                                th: "จาก...",
+                                    en: "from…"
+                    },
+                    "เผ็ด": {
+                        ja: "からい",
+                            zh: "辣",
+                                th: "เผ็ด",
+                                    en: "spicy"
+                    },
+                    "คาราโอเกะ": {
+                        ja: "カラオケ",
+                            zh: "卡拉OK",
+                                th: "คาราโอเกะ",
+                                    en: "karaoke"
+                    },
+                    "ร้องคาราโอเกะ": {
+                        ja: "カラオケ（を）する",
+                            zh: "唱卡拉OK",
+                                th: "ร้องคาราโอเกะ",
+                                    en: "sing karaoke"
+                    },
+                    "ร่างกาย": {
+                        ja: "体（からだ）",
+                            zh: "身体",
+                                th: "ร่างกาย",
+                                    en: "body"
+                    },
+                    "ขอยืม, เช่า": {
+                        ja: "借（か）ります",
+                            zh: "借",
+                                th: "ขอยืม, เช่า",
+                                    en: "borrow, rent"
+                    },
+                    "เบา": {
+                        ja: "軽（かる）い",
+                            zh: "轻",
+                                th: "เบา",
+                                    en: "light"
+                    },
+                    "แกงกะหรี่": {
+                        ja: "カレー",
+                            zh: "咖喱",
+                                th: "แกงกะหรี่",
+                                    en: "curry"
+                    },
+                    "ปฏิทิน": {
+                        ja: "カレンダー",
+                            zh: "日历",
+                                th: "ปฏิทิน",
+                                    en: "calendar"
+                    },
+                    "แม่น้ำ": {
+                        ja: "川（かわ）",
+                            zh: "河",
+                                th: "แม่น้ำ",
+                                    en: "river"
+                    },
+                    "คิด, พิจารณา": {
+                        ja: "かんがえます",
+                            zh: "考虑",
+                                th: "คิด, พิจารณา",
+                                    en: "think, consider"
+                    },
+                    "ประเทศเกาหลีใต้": {
+                        ja: "韓国（かんこく）",
+                            zh: "韩国",
+                                th: "ประเทศเกาหลีใต้",
+                                    en: "South Korea"
+                    },
+                    "อักษรคันจิ": {
+                        ja: "漢字（かんじ）",
+                            zh: "汉字",
+                                th: "อักษรคันจิ",
+                                    en: "kanji"
+                    },
+                    "ง่าย": {
+                        ja: "かんたん",
+                            zh: "简单",
+                                th: "ง่าย",
+                                    en: "easy"
+                    },
+                    "ต้นไม้": {
+                        ja: "木（き）",
+                            zh: "树",
+                                th: "ต้นไม้",
+                                    en: "tree"
+                    },
+                    "ฟัง (เพลง)": {
+                        ja: "（音楽（おんがく）を）聞（き）きます①",
+                            zh: "听（音乐）",
+                                th: "ฟัง (เพลง)",
+                                    en: "listen (music)"
+                    },
+                    "ถาม (เพื่อน, ครู)": {
+                        ja: "（友だちに／先生に）聞（き）きます②",
+                            zh: "问（朋友, 老师）",
+                                th: "ถาม (เพื่อน, ครู)",
+                                    en: "ask (friend, teacher)"
+                    },
+                    "ทิศเหนือ": {
+                        ja: "北（きた）",
+                            zh: "北方",
+                                th: "ทิศเหนือ",
+                                    en: "north"
+                    },
+                    "กีตาร์": {
+                        ja: "ギター",
+                            zh: "吉他",
+                                th: "กีตาร์",
+                                    en: "guitar"
+                    },
+                    "สกปรก": {
+                        ja: "きたない",
+                            zh: "脏",
+                                th: "สกปรก",
+                                    en: "dirty"
+                    },
+                    "ร้านกาแฟ": {
+                        ja: "喫茶店（きっさてん）",
+                            zh: "咖啡店",
+                                th: "ร้านกาแฟ",
+                                    en: "café"
+                    },
+                    "ตั๋ว (รถโดยสารสาธารณะ)": {
+                        ja: "きっぷ",
+                            zh: "票",
+                                th: "ตั๋ว (รถโดยสารสาธารณะ)",
+                                    en: "ticket"
+                    },
+                    "เมื่อวาน": {
+                        ja: "きのう",
+                            zh: "昨天",
+                                th: "เมื่อวาน",
+                                    en: "yesterday"
+                    },
+                    "(นิสัย) เข้มงวด": {
+                        ja: "（性格（せいかく）が）きびしい",
+                            zh: "严格",
+                                th: "(นิสัย) เข้มงวด",
+                                    en: "strict"
+                    },
+                    "มา": {
+                        ja: "来（き）ます",
+                            zh: "来",
+                                th: "มา",
+                                    en: "come"
+                    },
+                    "ใส่ (เสื้อผ้า)": {
+                        ja: "（服（ふく）を)着（き）ます",
+                            zh: "穿（衣服）",
+                                th: "ใส่ (เสื้อผ้า)",
+                                    en: "wear (clothes)"
+                    },
+                    "ตกลง": {
+                        ja: "決（き）まります",
+                            zh: "决定",
+                                th: "ตกลง",
+                                    en: "be decided"
+                    },
+                    "ตัดสินใจ": {
+                        ja: "決（き）めます",
+                            zh: "决定",
+                                th: "ตัดสินใจ",
+                                    en: "decide"
+                    },
+                    "รู้สึกดี, รู้สึกสบาย": {
+                        ja: "気持（きもち）がいい",
+                            zh: "舒服",
+                                th: "รู้สึกดี, รู้สึกสบาย",
+                                    en: "feel good"
+                    },
+                    "แขก, ลูกค้า": {
+                        ja: "客（きゃく）",
+                            zh: "客人",
+                                th: "แขก, ลูกค้า",
+                                    en: "guest, customer"
+                    },
+                    "นม": {
+                        ja: "牛乳（ぎゅうにゅう）",
+                            zh: "牛奶",
+                                th: "นม",
+                                    en: "milk"
+                    },
+                    "วันนี้": {
+                        ja: "今日（きょう）",
+                            zh: "今天",
+                                th: "วันนี้",
+                                    en: "today"
+                    },
+                    "ห้องเรียน": {
+                        ja: "教室（きょうしつ）",
+                            zh: "教室",
+                                th: "ห้องเรียน",
+                                    en: "classroom"
+                    },
+                    "พี่น้อง": {
+                        ja: "兄弟（きょうだい）",
+                            zh: "兄弟",
+                                th: "พี่น้อง",
+                                    en: "siblings"
+                    },
+                    "ปีที่แล้ว": {
+                        ja: "去（きょ）年（ねん）",
+                            zh: "去年",
+                                th: "ปีที่แล้ว",
+                                    en: "last year"
+                    },
+                    "ไม่ชอบ, เกลียด": {
+                        ja: "きらい",
+                            zh: "讨厌",
+                                th: "ไม่ชอบ, เกลียด",
+                                    en: "dislike, hate"
+                    },
+                    "ตัด": {
+                        ja: "切（き）ります",
+                            zh: "切",
+                                th: "ตัด",
+                                    en: "cut"
+                    },
+                    "(ห้อง) สะอาด": {
+                        ja: "（部屋（へや）が）きれい①",
+                            zh: "干净",
+                                th: "(ห้อง) สะอาด",
+                                    en: "clean (room)"
+                    },
+                    "(ทิวทัศน์) สวยงาม": {
+                        ja: "（けしきが）きれい②",
+                            zh: "漂亮",
+                                th: "(ทิวทัศน์) สวยงาม",
+                                    en: "beautiful (view)"
+                    },
+                    "อย่างสะอาด, อย่างเรียบร้อย": {
+                        ja: "きれいに",
+                            zh: "干净地",
+                                th: "อย่างสะอาด, อย่างเรียบร้อย",
+                                    en: "cleanly, neatly"
+                    },
+                    "ตัวย่อของวันศุกร์": {
+                        ja: "金（きん）",
+                            zh: "星期五简写",
+                                th: "ตัวย่อของวันศุกร์",
+                                    en: "abbreviation of Friday"
+                    },
+                    "ธนาคาร": {
+                        ja: "銀行（ぎんこう）",
+                            zh: "银行",
+                                th: "ธนาคาร",
+                                    en: "bank"
+                    },
+                    "สนามบิน": {
+                        ja: "空港（くうこう）",
+                            zh: "机场",
+                                th: "สนามบิน",
+                                    en: "airport"
+                    },
+                    "ยา": {
+                        ja: "薬（くすり）",
+                            zh: "药",
+                                th: "ยา",
+                                    en: "medicine"
+                    },
+                    "กรุณา": {
+                        ja: "ください",
+                            zh: "请",
+                                th: "กรุณา",
+                                    en: "please"
+                    },
+                    "ผลไม้": {
+                        ja: "くだもの",
+                            zh: "水果",
+                                th: "ผลไม้",
+                                    en: "fruit"
+                    },
+                    "รองเท้า": {
+                        ja: "くつ",
+                            zh: "鞋",
+                                th: "รองเท้า",
+                                    en: "shoes"
+                    },
+                    "ประเทศ": {
+                        ja: "国（くに）",
+                            zh: "国家",
+                                th: "ประเทศ",
+                                    en: "country"
+                    },
+                    "ประมาณ, ราว ๆ": {
+                        ja: "～くらい",
+                            zh: "大约",
+                                th: "ประมาณ, ราว ๆ",
+                                    en: "about"
+                    },
+                    "รถยนต์": {
+                        ja: "車（くるま）",
+                            zh: "汽车",
+                                th: "รถยนต์",
+                                    en: "car"
+                    },
+                    "(สี) ดำ": {
+                        ja: "黒い（くろい）",
+                            zh: "黑色",
+                                th: "(สี) ดำ",
+                                    en: "black"
+                    },
+                    "โทรศัพท์มือถือ": {
+                        ja: "けいたい電話（でんわ）",
+                            zh: "手机",
+                                th: "โทรศัพท์มือถือ",
+                                    en: "mobile phone"
+                    },
+                    "เค้ก": {
+                        ja: "ケーキ",
+                            zh: "蛋糕",
+                                th: "เค้ก",
+                                    en: "cake"
+                    },
+                    "กล่องเล็ก ๆ, กรณี": {
+                        ja: "ケース",
+                            zh: "盒子",
+                                th: "กล่องเล็ก ๆ, กรณี",
+                                    en: "case"
+                    },
+                    "เกม": {
+                        ja: "ゲーム",
+                            zh: "游戏",
+                                th: "เกม",
+                                    en: "game"
+                    },
+                    "เล่นเกม": {
+                        ja: "ゲーム（を）します",
+                            zh: "玩游戏",
+                                th: "เล่นเกม",
+                                    en: "play game"
+                    },
+                    "เมื่อเช้า": {
+                        ja: "今朝（けさ）",
+                            zh: "今早",
+                                th: "เมื่อเช้า",
+                                    en: "this morning"
+                    },
+                    "ทิวทัศน์": {
+                        ja: "けしき",
+                            zh: "风景",
+                                th: "ทิวทัศน์",
+                                    en: "scenery"
+                    },
+                    "ยางลบ": {
+                        ja: "けしゴム",
+                            zh: "橡皮",
+                                th: "ยางลบ",
+                                    en: "eraser"
+                    },
+                    "ลบ": {
+                        ja: "けします",
+                            zh: "消去",
+                                th: "ลบ",
+                                    en: "erase"
+                    },
+                    "วันจันทร์": {
+                        ja: "月曜日（げつようび）",
+                            zh: "星期一",
+                                th: "วันจันทร์",
+                                    en: "Monday"
+                    },
+                    "แต่งงาน": {
+                        ja: "けっこんします",
+                            zh: "结婚",
+                                th: "แต่งงาน",
+                                    en: "get married"
+                    },
+                    "ทัศนศึกษา, เยี่ยมชม": {
+                        ja: "見学（けんがく）",
+                            zh: "参观",
+                                th: "ทัศนศึกษา, เยี่ยมชม",
+                                    en: "field trip"
+                    },
+                    "ร่าเริง, แข็งแรง": {
+                        ja: "元気（げんき）",
+                            zh: "精神",
+                                th: "ร่าเริง, แข็งแรง",
+                                    en: "healthy, energetic"
+                    },
+                    "ไม่ร่าเริง, ไม่แข็งแรง": {
+                        ja: "元気がない（げんきがない）",
+                            zh: "无精神",
+                                th: "ไม่ร่าเริง, ไม่แข็งแรง",
+                                    en: "not energetic"
+                    },
+                    "สวนสาธารณะ": {
+                        ja: "公園（こうえん）",
+                            zh: "公园",
+                                th: "สวนสาธารณะ",
+                                    en: "park"
+                    },
+                    "ชาดำ": {
+                        ja: "こう茶（ちゃ）",
+                            zh: "红茶",
+                                th: "ชาดำ",
+                                    en: "black tea"
+                    },
+                    "ป้อมตำรวจ": {
+                        ja: "こうばん",
+                            zh: "警察岗亭",
+                                th: "ป้อมตำรวจ",
+                                    en: "police box"
+                    },
+                    "เสื้อโค้ท": {
+                        ja: "コート",
+                            zh: "外套",
+                                th: "เสื้อโค้ท",
+                                    en: "coat"
+                    },
+                    "กาแฟ": {
+                        ja: "コーヒー",
+                            zh: "咖啡",
+                                th: "กาแฟ",
+                                    en: "coffee"
+                    },
+                    "ครอบครัว (ของผู้อื่น)": {
+                        ja: "ご家族（ごかぞく）",
+                            zh: "他人家族",
+                                th: "ครอบครัว (ของผู้อื่น)",
+                                    en: "someone else’s family"
+                    },
+                    "พี่น้อง (ของผู้อื่น)": {
+                        ja: "ご兄弟（ごきょうだい）",
+                            zh: "兄弟（别人）",
+                                th: "พี่น้อง (ของผู้อื่น)",
+                                    en: "someone else’s siblings"
+                    },
+                    "ที่นี่": {
+                        ja: "ここ",
+                            zh: "这里",
+                                th: "ที่นี่",
+                                    en: "here"
+                    },
+                    "ช่วงบ่าย": {
+                        ja: "午後（ごご）",
+                            zh: "下午",
+                                th: "ช่วงบ่าย",
+                                    en: "afternoon"
+                    },
+                    "มี, อยู่ (รูปสุภาพของあります)": {
+                        ja: "ございます",
+                            zh: "有（礼貌）",
+                                th: "มี, อยู่ (สุภาพ)",
+                                    en: "exist (polite)"
+                    },
+                    "...ตามสบาย (รูปสุภาพของじゆうに)": {
+                        ja: "ご自由に（ごじゆうに）",
+                            zh: "请随意",
+                                th: "…ตามสบาย",
+                                    en: "feel free"
+                    },
+                    "สามี (ของผู้อื่น)": {
+                        ja: "ご主人（ごしゅじん）",
+                            zh: "丈夫（别人）",
+                                th: "สามี (ของผู้อื่น)",
+                                    en: "someone else’s husband"
+                    },
+                    "ช่วงเช้า": {
+                        ja: "午前（ごぜん）",
+                            zh: "上午",
+                                th: "ช่วงเช้า",
+                                    en: "morning"
+                    },
+                    "คำตอบ": {
+                        ja: "答え（こたえ）",
+                            zh: "答案",
+                                th: "คำตอบ",
+                                    en: "answer"
+                    },
+                    "ตอบ": {
+                        ja: "答えます（こたえます）",
+                            zh: "回答",
+                                th: "ตอบ",
+                                    en: "answer (verb)"
+                    },
+                    "ทางโน้น, ตรงโน้น": {
+                        ja: "こちら",
+                            zh: "这边",
+                                th: "ทางโน้น, ตรงโน้น",
+                                    en: "this way"
+                    },
+                    "ทางโน้น, ตรงโน้น (รูปกันเองของこちら)": {
+                        ja: "こっち",
+                            zh: "这边 (口语)",
+                                th: "ทางโน้น, ตรงโน้น (กันเอง)",
+                                    en: "this way (casual)"
+                    },
+                    "ถ้วย": {
+                        ja: "コップ",
+                            zh: "杯子",
+                                th: "ถ้วย",
+                                    en: "cup"
+                    },
+                    "ปีนี้": {
+                        ja: "今年（ことし）",
+                            zh: "今年",
+                                th: "ปีนี้",
+                                    en: "this year"
+                    },
+                    "คำศัพท์": {
+                        ja: "ことば",
+                            zh: "词",
+                                th: "คำศัพท์",
+                                    en: "word"
+                    },
+                    "เด็ก, ลูก": {
+                        ja: "子ども（こども）",
+                            zh: "孩子",
+                                th: "เด็ก, ลูก",
+                                    en: "child"
+                    },
+                    "เด็ก, ลูก (ของผู้อื่น)": {
+                        ja: "子どもさん（こどもさん）",
+                            zh: "孩子（别人）",
+                                th: "เด็ก, ลูก (ของผู้อื่น)",
+                                    en: "someone else’s child"
+                    },
+                    "...นี้": {
+                        ja: "この～",
+                            zh: "这个～",
+                                th: "…นี้",
+                                    en: "this～"
+                    },
+                    "หลังจากนี้": {
+                        ja: "このあと",
+                            zh: "之后",
+                                th: "หลังจากนี้",
+                                    en: "after this"
+                    },
+                    "แถวนี้": {
+                        ja: "このへん",
+                            zh: "这附近",
+                                th: "แถวนี้",
+                                    en: "around here"
+                    },
+                    "ข้าว": {
+                        ja: "ご飯（ごはん）",
+                            zh: "饭",
+                                th: "ข้าว",
+                                    en: "rice"
+                    },
+                    "สำเนา, การคัดลอก": {
+                        ja: "コピー",
+                            zh: "复印",
+                                th: "สำเนา, การคัดลอก",
+                                    en: "copy"
+                    },
+                    "ถ่ายสำเนา, คัดลอก": {
+                        ja: "コピー（を）します",
+                            zh: "复印（动词）",
+                                th: "ถ่ายสำเนา, คัดลอก",
+                                    en: "make a copy"
+                    },
+                    "พ่อแม่ (ของผู้อื่น)": {
+                        ja: "ご両親（ごりょうしん）",
+                            zh: "父母（别人）",
+                                th: "พ่อแม่ (ของผู้อื่น)",
+                                    en: "someone else’s parents"
+                    },
+                    "สิ่งนี้": {
+                        ja: "これ",
+                            zh: "这个",
+                                th: "สิ่งนี้",
+                                    en: "this"
+                    },
+                    "จากนี้, หลังจากนี้": {
+                        ja: "これから",
+                            zh: "从现在起",
+                                th: "จากนี้, หลังจากนี้",
+                                    en: "from now"
+                    },
+                    "ประมาณ..., ราว ๆ ...": {
+                        ja: "～ごろ",
+                            zh: "大约",
+                                th: "ประมาณ..., ราว ๆ ...",
+                                    en: "around"
+                    },
+                    "คอนเสิร์ต": {
+                        ja: "コンサート",
+                            zh: "音乐会",
+                                th: "คอนเสิร์ต",
+                                    en: "concert"
+                    },
+                    "ครั้งนี้": {
+                        ja: "今回（こんど）",
+                            zh: "这次",
+                                th: "ครั้งนี้",
+                                    en: "this time"
+                    },
+                    "คืนนี้": {
+                        ja: "今晩（こんばん）",
+                            zh: "今晚",
+                                th: "คืนนี้",
+                                    en: "tonight"
+                    },
+                    "ร้านสะดวกซื้อ": {
+                        ja: "コンビニ",
+                            zh: "便利店",
+                                th: "ร้านสะดวกซื้อ",
+                                    en: "convenience store"
+                    },
+                    "คอมพิวเตอร์": {
+                        ja: "コンピューター",
+                            zh: "电脑",
+                                th: "คอมพิวเตอร์",
+                                    en: "computer"
+                    },
+                    "ปลา": {
+                        ja: "魚（さかな）",
+                            zh: "鱼",
+                                th: "ปลา",
+                                    en: "fish"
+                    },
+                    "ก่อน (เวลา), ข้างหน้า (สถานที่)": {
+                        ja: "先に（さきに）",
+                            zh: "先",
+                                th: "ก่อน (เวลา), ข้างหน้า (สถานที่)",
+                                    en: "ahead, before"
+                    },
+                    "(ดอกไม้) บาน": {
+                        ja: "さきます",
+                            zh: "开花",
+                                th: "(ดอกไม้) บาน",
+                                    en: "bloom"
+                    },
+                    "เรียงความ": {
+                        ja: "作文（さくぶん）",
+                            zh: "作文",
+                                th: "เรียงความ",
+                                    en: "composition"
+                    },
+                    "ดอกซากุระ": {
+                        ja: "さくら",
+                            zh: "樱花",
+                                th: "ดอกซากุระ",
+                                    en: "cherry blossom"
+                    },
+                    "ซาชิมิ, ปลาดิบ": {
+                        ja: "さしみ",
+                            zh: "生鱼片",
+                                th: "ซาชิมิ, ปลาดิบ",
+                                    en: "sashimi"
+                    },
+                    "ฟุตบอล": {
+                        ja: "サッカー",
+                            zh: "足球",
+                                th: "ฟุตบอล",
+                                    en: "soccer"
+                    },
+                    "ก่อนหน้านี้, เมื่อสักครู่": {
+                        ja: "さっき",
+                            zh: "刚才",
+                                th: "ก่อนหน้านี้, เมื่อสักครู่",
+                                    en: "a little while ago"
+                    },
+                    "นิตยสาร": {
+                        ja: "雑誌（ざっし）",
+                            zh: "杂志",
+                                th: "นิตยสาร",
+                                    en: "magazine"
+                    },
+                    "หนาว": {
+                        ja: "寒い（さむい）",
+                            zh: "冷",
+                                th: "หนาว",
+                                    en: "cold"
+                    },
+                    "คุณ...": {
+                        ja: "～さん",
+                            zh: "～先生/女士",
+                                th: "คุณ...",
+                                    en: "Mr./Ms."
+                    },
+                    "แซนด์วิช": {
+                        ja: "サンドイッチ",
+                            zh: "三明治",
+                                th: "แซนด์วิช",
+                                    en: "sandwich"
+                    },
+                    "น่าเสียดาย": {
+                        ja: "ざんねん",
+                            zh: "遗憾",
+                                th: "น่าเสียดาย",
+                                    en: "unfortunate"
+                    },
+                    "การเดินเล่น": {
+                        ja: "さんぽ",
+                            zh: "散步",
+                                th: "การเดินเล่น",
+                                    en: "walk"
+                    },
+                    "เดินเล่น": {
+                        ja: "さんぽ（を）します",
+                            zh: "散步（动词）",
+                                th: "เดินเล่น",
+                                    en: "take a walk"
+                    },
+                    "อักษร, ตัวอักษร": {
+                        ja: "字（じ）",
+                            zh: "字",
+                                th: "อักษร, ตัวอักษร",
+                                    en: "letter"
+                    },
+                    "เกม, การแข่งขัน (กีฬา)": {
+                        ja: "試合（しあい）",
+                            zh: "比赛",
+                                th: "เกม, การแข่งขัน (กีฬา)",
+                                    en: "match/game"
+                    },
+                    "อย่างไรก็ตาม, แต่": {
+                        ja: "しかし",
+                            zh: "但是",
+                                th: "อย่างไรก็ตาม, แต่",
+                                    en: "however, but"
+                    },
+                    "เวลา": {
+                        ja: "時間（じかん）",
+                            zh: "时间",
+                                th: "เวลา",
+                                    en: "time"
+                    },
+                    "การสอบ": {
+                        ja: "試験（しけん）",
+                            zh: "考试",
+                                th: "การสอบ",
+                                    en: "exam"
+                    },
+                    "งาน": {
+                        ja: "仕事（しごと）",
+                            zh: "工作",
+                                th: "งาน",
+                                    en: "work"
+                    },
+                    "พจนานุกรม": {
+                        ja: "辞書（じしょ）",
+                            zh: "字典",
+                                th: "พจนานุกรม",
+                                    en: "dictionary"
+                    },
+                    "เงียบ, สงบ": {
+                        ja: "しずか",
+                            zh: "安静",
+                                th: "เงียบ, สงบ",
+                                    en: "quiet"
+                    },
+                    "ข้างใต้, ข้างล่าง": {
+                        ja: "下（した）",
+                            zh: "下面",
+                                th: "ข้างใต้, ข้างล่าง",
+                                    en: "under"
+                    },
+                    "รู้, รู้จัก": {
+                        ja: "知っています（しっています）",
+                            zh: "知道",
+                                th: "รู้, รู้จัก",
+                                    en: "know"
+                    },
+                    "คำถาม": {
+                        ja: "質問（しつもん）",
+                            zh: "问题",
+                                th: "คำถาม",
+                                    en: "question"
+                    },
+                    "จักรยาน": {
+                        ja: "自転車（じてんしゃ）",
+                            zh: "自行车",
+                                th: "จักรยาน",
+                                    en: "bicycle"
+                    },
+                    "ตาย": {
+                        ja: "しにます",
+                            zh: "死",
+                                th: "ตาย",
+                                    en: "die"
+                    },
+                    "ทำ": {
+                        ja: "します",
+                            zh: "做",
+                                th: "ทำ",
+                                    en: "do"
+                    },
+                    "สำนักงาน, ออฟฟิศ": {
+                        ja: "事務室（じむしつ）",
+                            zh: "办公室",
+                                th: "สำนักงาน, ออฟฟิศ",
+                                    en: "office"
+                    },
+                    "งั้น, ถ้างั้น": {
+                        ja: "じゃ",
+                            zh: "那么",
+                                th: "งั้น, ถ้างั้น",
+                                    en: "then (casual)"
+                    },
+                    "งั้น, ถ้างั้น": {
+                        ja: "じゃあ",
+                            zh: "那么",
+                                th: "งั้น, ถ้างั้น",
+                                    en: "then (casual)"
+                    },
+                    "รูปถ่าย": {
+                        ja: "写真（しゃしん）",
+                            zh: "照片",
+                                th: "รูปถ่าย",
+                                    en: "photo"
+                    },
+                    "เสื้อเชิ้ต": {
+                        ja: "シャツ",
+                            zh: "衬衫",
+                                th: "เสื้อเชิ้ต",
+                                    en: "shirt"
+                    },
+                    "การอาบน้ำฝักบัว": {
+                        ja: "シャワー",
+                            zh: "淋浴",
+                                th: "การอาบน้ำฝักบัว",
+                                    en: "shower"
+                    },
+                    "ที่อยู่": {
+                        ja: "住所（じゅうしょ）",
+                            zh: "地址",
+                                th: "ที่อยู่",
+                                    en: "address"
+                    },
+                    "น้ำผลไม้": {
+                        ja: "ジュース",
+                            zh: "果汁",
+                                th: "น้ำผลไม้",
+                                    en: "juice"
+                    },
+                    "ชั้นเรียน, คาบเรียน": {
+                        ja: "授業（じゅぎょう）",
+                            zh: "授课",
+                                th: "ชั้นเรียน, คาบเรียน",
+                                    en: "class/lesson"
+                    },
+                    "การบ้าน": {
+                        ja: "宿題（しゅくだい）",
+                            zh: "作业",
+                                th: "การบ้าน",
+                                    en: "homework"
+                    },
+                    "ทำการบ้าน": {
+                        ja: "宿題（を）します",
+                            zh: "做作业",
+                                th: "ทำการบ้าน",
+                                    en: "do homework"
+                    },
+                    "งานอดิเรก": {
+                        ja: "趣味（しゅみ）",
+                            zh: "兴趣",
+                                th: "งานอดิเรก",
+                                    en: "hobby"
+                    },
+                    "ชนิด, ประเภท": {
+                        ja: "種類（しゅるい）",
+                            zh: "种类",
+                                th: "ชนิด, ประเภท",
+                                    en: "type"
+                    },
+                    "ลำดับ (ตัวเลข, ตัวอักษร ฯลฯ)": {
+                        ja: "順番（じゅんばん）",
+                            zh: "顺序",
+                                th: "ลำดับ (ตัวเลข, ตัวอักษร ฯลฯ)",
+                                    en: "order/sequence"
+                    },
+                    "เก่ง": {
+                        ja: "上手（じょうず）",
+                            zh: "擅长",
+                                th: "เก่ง",
+                                    en: "skilled"
+                    },
+                    "แข็งแรง, ทนทาน": {
+                        ja: "丈夫（じょうぶ）",
+                            zh: "强壮",
+                                th: "แข็งแรง, ทนทาน",
+                                    en: "strong/durable"
+                    },
+                    "การรับประทานอาหาร": {
+                        ja: "食事（しょくじ）",
+                            zh: "用餐",
+                                th: "การรับประทานอาหาร",
+                                    en: "meal"
+                    },
+                    "รับประทานอาหาร": {
+                        ja: "食事（を）します",
+                            zh: "吃饭",
+                                th: "รับประทานอาหาร",
+                                    en: "eat a meal"
+                    },
+                    "โรงอาหาร": {
+                        ja: "食堂（しょくどう）",
+                            zh: "食堂",
+                                th: "โรงอาหาร",
+                                    en: "cafeteria"
+                    },
+                    "ตรวจสอบ": {
+                        ja: "しらべます",
+                            zh: "调查",
+                                th: "ตรวจสอบ",
+                                    en: "check/investigate"
+                    },
+                    "เอกสาร, ข้อมูล": {
+                        ja: "資料（しりょう）",
+                            zh: "资料",
+                                th: "เอกสาร, ข้อมูล",
+                                    en: "documents/data"
+                    },
+                    "สีขาว": {
+                        ja: "白（しろ）",
+                            zh: "白色",
+                                th: "สีขาว",
+                                    en: "white"
+                    },
+                    "(สี) ขาว": {
+                        ja: "白い（しろい）",
+                            zh: "白色",
+                                th: "(สี) ขาว",
+                                    en: "white"
+                    },
+                    "รถไฟชิงกันเซน": {
+                        ja: "新幹線（しんかんせん）",
+                            zh: "新干线",
+                                th: "รถไฟชิงกันเซน",
+                                    en: "Shinkansen"
+                    },
+                    "ใจดี": {
+                        ja: "親切（しんせつ）",
+                            zh: "亲切",
+                                th: "ใจดี",
+                                    en: "kind"
+                    },
+                    "ความกังวล, ความเป็นห่วง": {
+                        ja: "心配（しんぱい）",
+                            zh: "担心",
+                                th: "ความกังวล, ความเป็นห่วง",
+                                    en: "worry"
+                    },
+                    "กังวล, ห่วง": {
+                        ja: "心配します（しんぱいします）",
+                            zh: "担心",
+                                th: "กังวล, ห่วง",
+                                    en: "be worried"
+                    },
+                    "หนังสือพิมพ์": {
+                        ja: "新聞（しんぶん）",
+                            zh: "报纸",
+                                th: "หนังสือพิมพ์",
+                                    en: "newspaper"
+                    },
+                    "น้ำ / วันพุธ (ตัวย่อ)": {
+                        ja: "水（すい）",
+                            zh: "水",
+                                th: "น้ำ / วันพุธ (ตัวย่อ)",
+                                    en: "water / Wed"
+                    },
+                    "การว่ายน้ำ": {
+                        ja: "水泳（すいえい）",
+                            zh: "游泳",
+                                th: "การว่ายน้ำ",
+                                    en: "swimming"
+                    },
+                    "สูบ (บุหรี่)": {
+                        ja: "（タバコを）すいます",
+                            zh: "吸烟",
+                                th: "สูบ (บุหรี่)",
+                                    en: "smoke"
+                    },
+                    "วันพุธ": {
+                        ja: "水曜日（すいようび）",
+                            zh: "星期三",
+                                th: "วันพุธ",
+                                    en: "Wednesday"
+                    },
+                    "สูท": {
+                        ja: "スーツ",
+                            zh: "西装",
+                                th: "สูท",
+                                    en: "suit"
+                    },
+                    "ซูเปอร์มาร์เกต": {
+                        ja: "スーパー",
+                            zh: "超市",
+                                th: "ซูเปอร์มาร์เกต",
+                                    en: "supermarket"
+                    },
+                    "ชอบ": {
+                        ja: "好き（すき）",
+                            zh: "喜欢",
+                                th: "ชอบ",
+                                    en: "like"
+                    },
+                    "เลย, ผ่าน": {
+                        ja: "～すぎ",
+                            zh: "过",
+                                th: "เลย, ผ่าน",
+                                    en: "too much"
+                    },
+                    "สกี": {
+                        ja: "スキー",
+                            zh: "滑雪",
+                                th: "สกี",
+                                    en: "ski"
+                    },
+                    "ของที่ชอบ, ของโปรด": {
+                        ja: "好きなもの（すきなもの）",
+                            zh: "喜欢的东西",
+                                th: "ของที่ชอบ, ของโปรด",
+                                    en: "favorite thing"
+                    },
+                    "หิว": {
+                        ja: "（おなかが）すきます",
+                            zh: "饿",
+                                th: "หิว",
+                                    en: "be hungry"
+                    },
+                    "ทันที": {
+                        ja: "すぐ（すぐに）",
+                            zh: "立即",
+                                th: "ทันที",
+                                    en: "immediately"
+                    },
+                    "สเกต": {
+                        ja: "スケート",
+                            zh: "滑冰",
+                                th: "สเกต",
+                                    en: "skate"
+                    },
+                    "นิดหน่อย, เล็กน้อย": {
+                        ja: "少し（すこし）",
+                            zh: "一点",
+                                th: "นิดหน่อย, เล็กน้อย",
+                                    en: "a little"
+                    },
+                    "(อากาศ) เย็น": {
+                        ja: "すずしい",
+                            zh: "凉爽",
+                                th: "(อากาศ) เย็น",
+                                    en: "cool"
+                    },
+                    "แต่ละ, ครั้งละ, อย่างละ": {
+                        ja: "～ずつ",
+                            zh: "每",
+                                th: "แต่ละ, ครั้งละ, อย่างละ",
+                                    en: "each"
+                    },
+                    "เครื่องทำความร้อน": {
+                        ja: "ストーブ",
+                            zh: "暖炉",
+                                th: "เครื่องทำความร้อน",
+                                    en: "heater"
+                    },
+                    "ช้อน": {
+                        ja: "スプーン",
+                            zh: "勺子",
+                                th: "ช้อน",
+                                    en: "spoon"
+                    },
+                    "กีฬา": {
+                        ja: "スポーツ",
+                            zh: "运动",
+                                th: "กีฬา",
+                                    en: "sports"
+                    },
+                    "กางเกง": {
+                        ja: "ズボン",
+                            zh: "裤子",
+                                th: "กางเกง",
+                                    en: "pants"
+                    },
+                    "อาศัย": {
+                        ja: "住みます（すみます）",
+                            zh: "居住",
+                                th: "อาศัย",
+                                    en: "live"
+                    },
+                    "นั่ง": {
+                        ja: "座ります（すわります）",
+                            zh: "坐",
+                                th: "นั่ง",
+                                    en: "sit"
+                    },
+                    "ส่วนสูง (ของคน)": {
+                        ja: "背（せ）",
+                            zh: "身高",
+                                th: "ส่วนสูง (ของคน)",
+                                    en: "height"
+                    },
+                    "การใช้ชีวิต, วิถีชีวิต": {
+                        ja: "生活（せいかつ）",
+                            zh: "生活",
+                                th: "การใช้ชีวิต, วิถีชีวิต",
+                                    en: "life/living"
+                    },
+                    "สเวตเตอร์": {
+                        ja: "セーター",
+                            zh: "毛衣",
+                                th: "สเวตเตอร์",
+                                    en: "sweater"
+                    },
+                    "อย่างแน่นอน": {
+                        ja: "ぜひ",
+                            zh: "一定",
+                                th: "อย่างแน่นอน",
+                                    en: "by all means"
+                    },
+                    "แคบ": {
+                        ja: "せまい",
+                            zh: "狭窄",
+                                th: "แคบ",
+                                    en: "narrow"
+                    },
+                    "สัปดาห์ที่แล้ว": {
+                        ja: "先週（せんしゅう）",
+                            zh: "上周",
+                                th: "สัปดาห์ที่แล้ว",
+                                    en: "last week"
+                    },
+                    "ครู, อาจารย์": {
+                        ja: "先生（せんせい）",
+                            zh: "老师",
+                                th: "ครู, อาจารย์",
+                                    en: "teacher"
+                    },
+                    "ไม่...เลย": {
+                        ja: "ぜんぜん～ない",
+                            zh: "一点也不",
+                                th: "ไม่...เลย",
+                                    en: "not at all"
+                    },
+                    "ซักผ้า": {
+                        ja: "洗濯（せんたく）（を）します",
+                            zh: "洗衣服",
+                                th: "ซักผ้า",
+                                    en: "do laundry"
+                    },
+                    "ทั้งหมด, ทั้งสิ้น": {
+                        ja: "全部（ぜんぶ）",
+                            zh: "全部",
+                                th: "ทั้งหมด, ทั้งสิ้น",
+                                    en: "all"
+                    },
+                    "รวมทั้งหมด": {
+                        ja: "全部で",
+                            zh: "总共",
+                                th: "รวมทั้งหมด",
+                                    en: "in total"
+                    },
+                    "ช้าง": {
+                        ja: "ゾウ",
+                            zh: "大象",
+                                th: "ช้าง",
+                                    en: "elephant"
+                    },
+                    "ทำความสะอาด": {
+                        ja: "そうじ（を）します",
+                            zh: "打扫",
+                                th: "ทำความสะอาด",
+                                    en: "clean"
+                    },
+                    "ที่นั่น": {
+                        ja: "そこ",
+                            zh: "那里",
+                                th: "ที่นั่น",
+                                    en: "there"
+                    },
+                    "และ, แล้วก็": {
+                        ja: "そして",
+                            zh: "然后",
+                                th: "และ, แล้วก็",
+                                    en: "and then"
+                    },
+                    "ทางคุณ (คู่สนทนา)": {
+                        ja: "そちら①",
+                            zh: "您那里",
+                                th: "ทางคุณ (คู่สนทนา)",
+                                    en: "over there (listener)"
+                    },
+                    "ที่นั่น, ตรงนั้น (ที่ผู้ฟังอยู่)": {
+                        ja: "そちら②",
+                            zh: "那边",
+                                th: "ที่นั่น, ตรงนั้น (ที่ผู้ฟังอยู่)",
+                                    en: "over there"
+                    },
+                    "ที่นั่น (รูปกันเองของ そちら)": {
+                        ja: "そっち",
+                            zh: "那边",
+                                th: "ที่นั่น (รูปกันเองของ そちら)",
+                                    en: "over there (casual)"
+                    },
+                    "ข้างนอก": {
+                        ja: "外（そと）",
+                            zh: "外面",
+                                th: "ข้างนอก",
+                                    en: "outside"
+                    },
+                    "นั่น, นั้น (ใกล้กับผู้ฟัง)": {
+                        ja: "その",
+                            zh: "那个",
+                                th: "นั่น, นั้น (ใกล้กับผู้ฟัง)",
+                                    en: "that"
+                    },
+                    "ใกล้": {
+                        ja: "そば",
+                            zh: "旁边",
+                                th: "ใกล้",
+                                    en: "near"
+                    },
+                    "ปู่, ตา (ของตน)": {
+                        ja: "祖父（そふ）",
+                            zh: "祖父",
+                                th: "ปู่, ตา (ของตน)",
+                                    en: "grandfather"
+                    },
+                    "ย่า, ยาย (ของตน)": {
+                        ja: "祖母（そぼ）",
+                            zh: "祖母",
+                                th: "ย่า, ยาย (ของตน)",
+                                    en: "grandmother (own)"
+                    },
+                    "ท้องฟ้า": {
+                        ja: "空（そら）",
+                            zh: "天空",
+                                th: "ท้องฟ้า",
+                                    en: "sky"
+                    },
+                    "นั่น, ตรงนั้น": {
+                        ja: "それ",
+                            zh: "那个",
+                                th: "นั่น, ตรงนั้น",
+                                    en: "that"
+                    },
+                    "จากนั้น": {
+                        ja: "それから",
+                            zh: "然后",
+                                th: "จากนั้น",
+                                    en: "after that"
+                    },
+                    "ถ้าอย่างนั้น": {
+                        ja: "それでは",
+                            zh: "那么",
+                                th: "ถ้าอย่างนั้น",
+                                    en: "then / in that case"
+                    },
+                    "มหาวิทยาลัย": {
+                        ja: "大学（だいがく）",
+                            zh: "大学",
+                                th: "มหาวิทยาลัย",
+                                    en: "university"
+                    },
+                    "นักศึกษา (มหาวิทยาลัย) ปี 1": {
+                        ja: "大学1年生",
+                            zh: "大学一年级学生",
+                                th: "นักศึกษา (มหาวิทยาลัย) ปี 1",
+                                    en: "university first-year student"
+                    },
+                    "ไม่มีปัญหา, ไม่เป็นไร": {
+                        ja: "大丈夫",
+                            zh: "没问题",
+                                th: "ไม่มีปัญหา, ไม่เป็นไร",
+                                    en: "all right / okay"
+                    },
+                    "ชอบมาก": {
+                        ja: "大好き",
+                            zh: "非常喜欢",
+                                th: "ชอบมาก",
+                                    en: "love / really like"
+                    },
+                    "สำคัญ": {
+                        ja: "大切",
+                            zh: "重要",
+                                th: "สำคัญ",
+                                    en: "important / precious"
+                    },
+                    "ปกติ": {
+                        ja: "大抵",
+                            zh: "通常",
+                                th: "ปกติ",
+                                    en: "usually / mostly"
+                    },
+                    "อย่างมาก / ลำบาก": {
+                        ja: "大変",
+                            zh: "非常 / 很辛苦",
+                                th: "อย่างมาก / ลำบาก",
+                                    en: "very / tough"
+                    },
+                    "ไต้หวัน": {
+                        ja: "台湾",
+                            zh: "台湾",
+                                th: "ไต้หวัน",
+                                    en: "Taiwan"
+                    },
+                    "สูง (ตัว)": {
+                        ja: "高い（せが）",
+                            zh: "高",
+                                th: "สูง (ตัว)",
+                                    en: "tall (height)"
+                    },
+                    "ราคา สูง, แพง": {
+                        ja: "高い（値段）",
+                            zh: "贵",
+                                th: "ราคา สูง, แพง",
+                                    en: "expensive"
+                    },
+                    "มาก, เยอะ": {
+                        ja: "たくさん",
+                            zh: "很多",
+                                th: "มาก, เยอะ",
+                                    en: "a lot / many"
+                    },
+                    "แท็กซี่": {
+                        ja: "タクシー",
+                            zh: "出租车",
+                                th: "แท็กซี่",
+                                    en: "taxi"
+                    },
+                    "…เท่านั้น, เพียง..., แค่...": {
+                        ja: "～だけ",
+                            zh: "仅",
+                                th: "…เท่านั้น, เพียง..., แค่...",
+                                    en: "only / just"
+                    },
+                    "ส่ง (จดหมาย)": {
+                        ja: "（手紙を）出します",
+                            zh: "寄（信）",
+                                th: "ส่ง (จดหมาย)",
+                                    en: "send (letter)"
+                    },
+                    "ส่ง (รายงาน)": {
+                        ja: "（レポートを）出します",
+                            zh: "提交（报告）",
+                                th: "ส่ง (รายงาน)",
+                                    en: "submit (report)"
+                    },
+                    "ถูกต้อง": {
+                        ja: "正しい",
+                            zh: "正确",
+                                th: "ถูกต้อง",
+                                    en: "correct / right"
+                    },
+                    "คำนำหน้ารูปพหูพจน์ (ใช้กับคน)": {
+                        ja: "～たち",
+                            zh: "～们",
+                                th: "คำนำหน้ารูปพหูพจน์ (ใช้กับคน)",
+                                    en: "plural suffix (people)"
+                    },
+                    "ยืน": {
+                        ja: "立ちます",
+                            zh: "站",
+                                th: "ยืน",
+                                    en: "stand"
+                    },
+                    "ตึก, อาคาร": {
+                        ja: "建物",
+                            zh: "建筑物",
+                                th: "ตึก, อาคาร",
+                                    en: "building"
+                    },
+                    "ชั้นวางของ, หิ้ง": {
+                        ja: "棚",
+                            zh: "架子",
+                                th: "ชั้นวางของ, หิ้ง",
+                                    en: "shelf"
+                    },
+                    "สนุก": {
+                        ja: "楽しい",
+                            zh: "愉快",
+                                th: "สนุก",
+                                    en: "fun / enjoyable"
+                    },
+                    "ความสนุก": {
+                        ja: "楽しみ",
+                            zh: "期待",
+                                th: "ความสนุก",
+                                    en: "pleasure / anticipation"
+                    },
+                    "อาจจะ, บางที": {
+                        ja: "たぶん",
+                            zh: "可能",
+                                th: "อาจจะ, บางที",
+                                    en: "probably / maybe"
+                    },
+                    "กิน": {
+                        ja: "食べます",
+                            zh: "吃",
+                                th: "กิน",
+                                    en: "eat"
+                    },
+                    "อาหาร, ของกิน": {
+                        ja: "食べ物",
+                            zh: "食物",
+                                th: "อาหาร, ของกิน",
+                                    en: "food"
+                    },
+                    "ไข่": {
+                        ja: "たまご",
+                            zh: "蛋",
+                                th: "ไข่",
+                                    en: "egg"
+                    },
+                    "อย่า, ห้าม": {
+                        ja: "だめ①",
+                            zh: "不行 / 不可以",
+                                th: "อย่า, ห้าม",
+                                    en: "not allowed / no good"
+                    },
+                    "ไม่ได้": {
+                        ja: "だめ②",
+                            zh: "不行",
+                                th: "ไม่ได้",
+                                    en: "cannot / no good"
+                    },
+                    "ใคร": {
+                        ja: "だれ",
+                            zh: "谁",
+                                th: "ใคร",
+                                    en: "who"
+                    },
+                    "ใครสักคน": {
+                        ja: "だれか",
+                            zh: "某人",
+                                th: "ใครสักคน",
+                                    en: "someone"
+                    },
+                    "กับใครก็ตาม (ปฏิเสธ)": {
+                        ja: "だれとも",
+                            zh: "没有人",
+                                th: "กับใครก็ตาม (ปฏิเสธ)",
+                                    en: "with anyone (neg.)"
+                    },
+                    "ใครก็ตาม (ปฏิเสธ)": {
+                        ja: "だれにも",
+                            zh: "没有人",
+                                th: "ใครก็ตาม (ปฏิเสธ)",
+                                    en: "to anyone (neg.)"
+                    },
+                    "ใครก็ตาม (ปฏิเสธ)": {
+                        ja: "だれも",
+                            zh: "没有人",
+                                th: "ใครก็ตาม (ปฏิเสธ)",
+                                    en: "no one / nobody"
+                    },
+                    "วันเกิด": {
+                        ja: "誕生日",
+                            zh: "生日",
+                                th: "วันเกิด",
+                                    en: "birthday"
+                    },
+                    "การเต้น": {
+                        ja: "ダンス",
+                            zh: "舞蹈",
+                                th: "การเต้น",
+                                    en: "dance"
+                    },
+                    "เล็ก": {
+                        ja: "小さい",
+                            zh: "小",
+                                th: "เล็ก",
+                                    en: "small / little"
+                    },
+                    "เช็กอิน": {
+                        ja: "チェックインします",
+                            zh: "登记入住",
+                                th: "เช็กอิน",
+                                    en: "check in"
+                    },
+                    "ใกล้": {
+                        ja: "近い",
+                            zh: "近",
+                                th: "ใกล้",
+                                    en: "near / close"
+                    },
+                    "แตกต่าง, ผิด": {
+                        ja: "ちがいます",
+                            zh: "不同",
+                                th: "แตกต่าง, ผิด",
+                                    en: "different / wrong"
+                    },
+                    "ความใกล้เคียง": {
+                        ja: "近く",
+                            zh: "附近",
+                                th: "ความใกล้เคียง",
+                                    en: "near / vicinity"
+                    },
+                    "รถไฟใต้ดิน": {
+                        ja: "地下鉄",
+                            zh: "地铁",
+                                th: "รถไฟใต้ดิน",
+                                    en: "subway / metro"
+                    },
+                    "ตั๋ว": {
+                        ja: "チケット",
+                            zh: "票",
+                                th: "ตั๋ว",
+                                    en: "ticket"
+                    },
+                    "พ่อ (ของตน)": {
+                        ja: "父",
+                            zh: "父亲",
+                                th: "พ่อ (ของตน)",
+                                    en: "father (own)"
+                    },
+                    "ภาษาจีน": {
+                        ja: "中国語",
+                            zh: "中文",
+                                th: "ภาษาจีน",
+                                    en: "Chinese language"
+                    },
+                    "ชาวจีน": {
+                        ja: "中国人",
+                            zh: "中国人",
+                                th: "ชาวจีน",
+                                    en: "Chinese person"
+                    },
+                    "สั่ง (อาหาร, ของทางออนไลน์)": {
+                        ja: "注文します",
+                            zh: "点/订购",
+                                th: "สั่ง (อาหาร, ของทางออนไลน์)",
+                                    en: "order / request"
+                    },
+                    "พอดี": {
+                        ja: "ちょうど",
+                            zh: "正好",
+                                th: "พอดี",
+                                    en: "just / exactly"
+                    },
+                    "เล็กน้อย, หน่อย": {
+                        ja: "ちょっと",
+                            zh: "一点 / 稍微",
+                                th: "เล็กน้อย, หน่อย",
+                                    en: "a little / slightly"
+                    },
+                    "ใช้": {
+                        ja: "使います",
+                            zh: "使用",
+                                th: "ใช้",
+                                    en: "use"
+                    },
+                    "เหนื่อย": {
+                        ja: "疲れます",
+                            zh: "累",
+                                th: "เหนื่อย",
+                                    en: "get tired / be tired"
+                    }
+                    
+                };
+
+                function showRandomKanji() {
+                    const randomIndex = Math.floor(Math.random() * kanjiList.length);
+                    currentKanji = kanjiList[randomIndex];
+                    document.getElementById("kanji").textContent = currentKanji.kanji;
+                    document.getElementById("answer").textContent = "____";
+                }
+
+                function showAnswer() {
+                    if (!currentKanji) return;
+                    const lang = document.getElementById("lang").value;
+                    const meaning = dictionary[currentKanji.meaning][lang];
+                    document.getElementById("answer").textContent = meaning;
+                }
+            </script>
+        </div>
+
+        <div class="content home2">
+            <center>
+                <h1></h1>
+            </center>
+            <center>
+                <h2></h2>
+            </center>
+        </div>
+    </div>
+</body>
+
+</html>
