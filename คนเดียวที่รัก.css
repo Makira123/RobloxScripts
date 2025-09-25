@@ -1,169 +1,217 @@
-/* ตั้งค่าให้ body ครอบจอทั้งหมด */
-  body, html {
-    margin: 0;
+body,html {
+    margin: 2%;
     padding: 0;
     height: 100%;
-  }
-
-  /* ใช้ Flexbox จัดให้อยู่ตรงกลางทั้งแนวนอนและแนวตั้ง */
-  body {
-    display: flex;
-    justify-content: center; /* แนวนอน */
-    align-items: center;     /* แนวตั้ง */
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-    overflow: hidden;
-  }
-
-  /* กล่องตรงกลาง */
-  .homelove {
-  width: 300px;
-  height: 300px;
-  background-color: #ff9ae5;
-  border-radius: 10px;
-  box-shadow: 0 3px 15px rgba(255,154,229,0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-  position: relative; /* 👈 สำคัญมาก ให้ลูก absolute อ้างอิงกรอบนี้ */
-  overflow: hidden;   /* 👈 กันไม่ให้หลุดออกนอกกรอบ */
 }
 
-.i {
-  width: 200px;
-  height: 200px;
-  background: #FF0210;
-  transform: rotate(45deg);
-  box-shadow: 0 3px 1500px rgba(255,20,20,1)
-}
- .love,
- .you {
-   width: 200px;
-   height: 200px;
-   border-radius: 50%;
-   background: #FF0210;
-   position: absolute;
-   top: 45.2%;
-   box-shadow: 0 3px 150px rgba(255,20,20,1)
- }
- .love {
-   position: absolute;
-   left:317.55px;
-   top:850px;
-   transform: rotate(45deg);
- }
- .you {
-   position: absolute;
-   left:462.55px;
-   top:850px;
- }
- .iloveyou {
-   color: #Ffffff;
-   position: absolute;
-   top: 60%;
-   left: -26%;
-   font-size: 35px;
- }
-
-  .heart {
-  width: 150px;
-  height: 140px;
-  background-color: #FF1414;
-  position: relative;
-  left: clc(50% - 75px);
-  top:-20%;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  box-shadow: 0 2px 10px rgba(255,20,20,0.75);
-  }
-
-.yes {
-  position: absolute;
-  left:calc(50% - 110px);
-}
-
-.no {
-  position: absolute
-}
-  
-  button {
+body {
     display: auto;
-    width: 100px;
-    height: 50px;
-    position: relative;
-    left:calc(50% + 10px);
-    border-radius: 30px;
-    border: 1px solid #000;
-    top: 70%;
-    box-shadow: 0 5px 15px rgba(1,2,7,0.3);
-  }
+    background-color: #04043b;
+}
 
-  /* ทำให้ยืดหยุ่นในมือถือ */
-  @media (max-width: 500px){
-    .homelove {
-      width: 350px;  /* ความกว้างตามหน้าจอมือถือ */
-      height: 350px;
-      font-size: 18px;
-    }
-    
-    .you {
-      position: absolute;
-      top: 30%;
-      left: 43.9%;
-    }
-    .love {
-      position: absolute;
-      top: 30%;
-      left: 8.1%;
-    }
-    body {
-      background: #1b2735;
-    }
-  }
-  
-  /* ดาวเล็ก ๆ กระพริบ */
-  .star {
-    position: absolute;
+input[type=radio] {
+    display: none;
+}
+
+.label { 
+    display: block;
+    margin: 1%;
+    width: 50px;
+    height: 50px;
+    background-color: #ff1414;
+    border-radius: 50%;
+    border: 3.5px solid black;
+    position: relative;
+    z-index: 999;
+    bottom: 5.21%;
+}
+
+#radio1:checked + .label,
+#radio2:checked + .label {
+    background-color: rgba(14, 255, 1, 1);
+    border: 3.5px solid black;
+}
+
+.label-body {
+    width: calc(2% + 57px);
+    height: calc(10% + 100px);
+    display: auto;
+    background: #000000;
+    position: relative;
+    top:31%;
+    z-index: 999;
+    border-radius: 5px;
+}
+
+#radio1:checked ~ .home1,
+#radio2:checked ~ .home2 {
+    margin: 0;
+    display: block;
+    padding: auto;
+    border-radius: 30px;
+    height: 400px;
+    width: 90vw;
+    position: relative;
+    z-index: 1;
+    border: 2px solid black;
+    left:-5%;
+    top: -70%;
+}
+
+.content {
+    display: none;
+    position :relative;
+    z-index: 2;
+}
+
+.home1 {
+    display: auto;
+    background-color: rgba(255, 255, 255, 0.94);
+    position: relative;
+    top:calc(-6% - 100px);
+}
+
+.home2 {
+    display: auto;
+    background-image: url(https://media.discordapp.net/attachments/1110870660621803570/1420625493434044426/445967.jpg?ex=68d61417&is=68d4c297&hm=e4947998d6a3a5dfc754cecc2b8e7b7168383e14ec51d72b222f32aa941e1c0d&=&format=webp&width=1240&height=698);
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: calc(-2% - 35vh);
+}
+
+h2 {
+    display: inline;
+}
+
+
+.home {
+    display: auto;
+    background-image: url(honkai-star-rail-4k-8w-2560x1440.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    left: 5%;
+    margin: 0;
+    padding: 0;
+    height: 80vh;
+    width: 90%;
+    border-radius: 10%;
+    box-shadow:0 10px 100px rgba(255, 255, 255, 1);
+    z-index: 1;
+}
+
+
+
+.star {
+    display: flex;
     width: 2px;
     height: 2px;
-    background: white;
-    box-shadow: 0 3px 5px rgba(255,255,255,1);
-    border-radius: 50%;
-    animation: twinkle 3s infinite alternate;
-  }
-
-  @keyframes twinkle {
-    from { opacity: 0.2; }
-    to { opacity: 1; }
-  }
-
-  /* ดาวตก */
-  .shooting-star {
+    background-color: white;
     position: absolute;
-    width: 100px;
-    height: 2px;
-    background: linear-gradient(90deg, white, transparent);
-    opacity: 0;
-    transform: rotate(-45deg);
-    animation: shooting 5s linear infinite;
-    box-shadow: 0 3px 100px rgba(255,255,255,1);
-  }
+    box-shadow: 0 5px 100px rgba(255, 255, 255, 1);
+    border-radius: 50%;
+    animation: twinkle 2s infinite alternate;
+    z-index: 0;
+}
 
-  @keyframes shooting {
-    0% {
-      transform: translateX(200px) translateY(0px) rotate(-45deg);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-    100% {
+.container {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 350px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+  
+.container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+  
+.container .la {
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #666;
+}
+
+select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    outline: none;
+    transition: 0.3s;
+}
+
+select:hover {
+    border-color: #4f6ef7;
+}
+
+button {
+    display: inline-block;
+    background: #4f6ef7;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(79, 110, 247, 0.4);
+}
+  
+button:hover {
+    background: #3b54c2;
+    transform: translateY(-2px);
+}
+
+#answer {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+    background: #f8f9ff;
+    border: 1px dashed #4f6ef7;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+@keyframes twinkle {
+    from {opacity: 0.1;}
+    to {opacity: 1;}
+}
+
+/* มือถือ */
+@media only screen and (max-width: 767px) {
+  #radio1:checked ~ .home1,
+  #radio2:checked ~ .home2 {
+      position : relative;
+      top: -32.5%;
+  }
+  
+  .label-body {
+      height: 125px;
+      position: relative;
+      top: 12.65%;
+  }
+  
+  
+}
+
+/* Desktop */
+@media only screen and (min-width: 768px) {
+  .menu {
+    display: block; /* แสดงเมนู */
+  }
+}
       transform: translateX(-100vw) translateY(100vh) rotate(-45deg);
       opacity: 0;
     }
