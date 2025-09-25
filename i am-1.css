@@ -38,7 +38,7 @@ input[type=radio] {
     display: auto;
     background: #000000;
     position: relative;
-    top:31%;
+    top:22%;
     z-index: 999;
     border-radius: 5px;
 }
@@ -55,7 +55,7 @@ input[type=radio] {
     z-index: 1;
     border: 2px solid black;
     left:-5%;
-    top: -70%;
+    top: -45%;
 }
 
 .content {
