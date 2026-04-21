@@ -105,7 +105,7 @@ client.on("ready", async () => {
     if (!channel.isTextBased()) continue;
 
     try {
-      const messages = await channel.messages.fetch({ limit: 150 });
+      const messages = await channel.messages.fetch({ limit: 100 });
 
       messages.forEach(message => {
         const channelId = message.channel.id;
