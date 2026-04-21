@@ -76,7 +76,7 @@ client.on("messageCreate", (message) => {
       }
     });
   }
-  axios.post("https://discord-mheg.onrender.com/messages", {
+  axios.post("https://discord-mheg.onrender.com/api/messages", {
     user: msgData.user,
     text: msgData.text,
     channelId: channelId,
