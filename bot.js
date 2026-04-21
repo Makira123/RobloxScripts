@@ -76,7 +76,7 @@ client.on("messageCreate", (message) => {
       }
     });
   }
-  axios.post("https://discord-mheg.onrender.com/api/messages", {
+  axios.post("https://discord-mheg.onrender.com/api/message", {
     user: msgData.user,
     text: msgData.text,
     channelId: channelId,
@@ -99,12 +99,13 @@ client.on("ready", async () => {
 
   console.log("กำลังโหลดทุกห้อง...");
 
+  const channels = client.channels.cache;
 
-  for (const [id, channel] of client.channels.cache) {
+  for (const [id, channel] of channels) {
     if (!channel.isTextBased()) continue;
 
     try {
-      const messages = await channel.messages.fetch({ limit: 50 });
+      const messages = await channel.messages.fetch({ limit: 150 });
 
       messages.forEach(message => {
         const channelId = message.channel.id;
