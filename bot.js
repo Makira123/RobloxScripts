@@ -14,7 +14,6 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
-const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 
 app.use(express.static("public"));
 
@@ -77,7 +76,7 @@ client.on("messageCreate", (message) => {
       }
     });
   }
-  axios.post(`${BASE_URL}/api/message`, {
+  axios.post("https://discord-mheg.onrender.com/messages", {
     user: msgData.user,
     text: msgData.text,
     channelId: channelId,
