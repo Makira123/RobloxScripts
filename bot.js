@@ -32,6 +32,7 @@ const client = new Client({
   ]
 });
 
+
 client.login(process.env.TOKEN);
 
 // 📦 เก็บข้อมูล
