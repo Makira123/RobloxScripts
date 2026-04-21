@@ -15,6 +15,8 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
 
+const sentMessagesc = new Set();
+
 app.use(express.static("public"));
 
 io.on("connection", (socket) => {
@@ -37,6 +39,10 @@ let data = {};
 
 // 📥 Discord message (เหลืออันเดียวพอ)
 client.on("messageCreate", (message) => {
+
+  if (sentMessages.has(message.id)) return;
+  sentMessages.add(message.id);
+  
   if (message.author.bot) return;
   if (!message.guild) return;
 
@@ -109,6 +115,9 @@ client.on("ready", async () => {
 
       messages.forEach(message => {
         const channelId = message.channel.id;
+
+        if (sentMessages.has(message.id)) return;
+        sentMessages.add(message.id);
 
         let msgData = {
           id: message.id, // 🔥 เพิ่มกันซ้ำ
