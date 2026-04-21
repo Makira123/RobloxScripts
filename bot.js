@@ -100,9 +100,8 @@ client.on("ready", async () => {
 
   console.log("กำลังโหลดทุกห้อง...");
 
-  await client.channels.cache;
 
-  for (const [id, channel] of channels) {
+  for (const [id, channel] of client.channels.cache) {
     if (!channel.isTextBased()) continue;
 
     try {
