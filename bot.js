@@ -80,6 +80,7 @@ client.on("messageCreate", (message) => {
       }
     });
   }
+  console.log("bot",message.id)
   axios.post("https://discord-mheg.onrender.com/api/message", {
     user: msgData.user,
     text: msgData.text,
@@ -131,6 +132,7 @@ client.on("ready", async () => {
             msgData.videos.push(att.url);
           }
         });
+        console.log("bots",message.id
 
         axios.post("https://discord-mheg.onrender.com/api/message", {
           user: msgData.user,
